@@ -126,5 +126,5 @@ def install_python_windows(filename: str, wait: bool) -> tuple[str, int]:
         Return code from the installation.
     """
     wait_str = " -Wait" if wait else ""
-    command = f"(Start-Process '{filename}' -ArgumentList '/passive InstallAllUsers=0' {wait_str})"
+    command = f"(Start-Process '{filename}' {wait_str})"
     return run_ps(command)
