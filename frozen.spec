@@ -44,7 +44,7 @@ if is_linux():
     added_files +=[(os.path.join(ASSETS_PATH, 'scripts'), 'assets')]
 
 a = Analysis([main_py],
-             pathex=[],
+             pathex=[INSTALLER_PATH],
              binaries=[],
              datas=added_files,
              hiddenimports=['_cffi_backend'],
