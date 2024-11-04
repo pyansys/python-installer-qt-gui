@@ -253,7 +253,7 @@ jobs:
         if: contains(matrix.os, 'centos') || contains(matrix.os, 'fedora')
         run: |
           yum update -y
-          yum group install "Development Tools" -y
+          yum group install development-tools -y
           yum install python3 \
             python3-pip \
             wget \
