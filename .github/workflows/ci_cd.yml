@@ -6,7 +6,7 @@ on:
     tags:
       - "*"
     branches:
-      - main
+      - yum-build-fix
 
 env:
   MAIN_PYTHON_VERSION: '3.11'
@@ -20,218 +20,218 @@ concurrency:
   cancel-in-progress: true
 jobs:
 
-  doc-style:
-    name: "Documentation style"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ansys/actions/doc-style@v8
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+  # doc-style:
+  #   name: "Documentation style"
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: ansys/actions/doc-style@v8
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
 
-  tests:
-    name: "Tests"
-    runs-on: windows-latest
-    strategy:
-      matrix:
-        python-version: ['3.9', '3.10', '3.11', '3.12']
-      fail-fast: false
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      DISPLAY: ':99'
-    steps:
-      - name: Install Linux os dependencies
-        if: runner.os == 'Linux'
-        run: sudo apt install libegl1
+  # tests:
+  #   name: "Tests"
+  #   runs-on: windows-latest
+  #   strategy:
+  #     matrix:
+  #       python-version: ['3.9', '3.10', '3.11', '3.12']
+  #     fail-fast: false
+  #   env:
+  #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     DISPLAY: ':99'
+  #   steps:
+  #     - name: Install Linux os dependencies
+  #       if: runner.os == 'Linux'
+  #       run: sudo apt install libegl1
 
-      - name: Setup headless display
-        uses: pyvista/setup-headless-display-action@v2
+  #     - name: Setup headless display
+  #       uses: pyvista/setup-headless-display-action@v2
 
-      - uses: ansys/actions/tests-pytest@v8
-        with:
-          python-version: ${{ matrix.python-version }}
+  #     - uses: ansys/actions/tests-pytest@v8
+  #       with:
+  #         python-version: ${{ matrix.python-version }}
 
-  doc-build:
-    name: "Build documentation"
-    runs-on: ubuntu-latest
-    needs: [doc-style]
-    steps:
-      - name: Build project documentation
-        uses: ansys/actions/doc-build@v8
-        with:
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          dependencies: "libegl1"
+  # doc-build:
+  #   name: "Build documentation"
+  #   runs-on: ubuntu-latest
+  #   needs: [doc-style]
+  #   steps:
+  #     - name: Build project documentation
+  #       uses: ansys/actions/doc-build@v8
+  #       with:
+  #         python-version: ${{ env.MAIN_PYTHON_VERSION }}
+  #         dependencies: "libegl1"
 
-  doc-deploy:
-    name: "Deploy development documentation"
-    runs-on: ubuntu-latest
-    needs: [doc-build]
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: ansys/actions/doc-deploy-dev@v8
-        with:
-          cname: ${{ env.DOCUMENTATION_CNAME }}
-          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-          bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
-          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
+  # doc-deploy:
+  #   name: "Deploy development documentation"
+  #   runs-on: ubuntu-latest
+  #   needs: [doc-build]
+  #   if: github.ref == 'refs/heads/main'
+  #   steps:
+  #     - uses: ansys/actions/doc-deploy-dev@v8
+  #       with:
+  #         cname: ${{ env.DOCUMENTATION_CNAME }}
+  #         token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+  #         bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
+  #         bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
 
-  build-application-windows:
-    name: "Build Application"
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
+  # build-application-windows:
+  #   name: "Build Application"
+  #   runs-on: windows-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+  #     - uses: actions/setup-python@v5
+  #       with:
+  #         python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
-      - name: Install Dependencies
-        run: pip install -e .[freeze]
+  #     - name: Install Dependencies
+  #       run: pip install -e .[freeze]
 
-      - name: Freeze application
-        run: pyinstaller frozen.spec
+  #     - name: Freeze application
+  #       run: pyinstaller frozen.spec
 
-      - name: Install NSIS
-        run: choco install nsis -y
+  #     - name: Install NSIS
+  #       run: choco install nsis -y
 
-      - name: Print NSIS version
-        run: makensis -VERSION
+  #     - name: Print NSIS version
+  #       run: makensis -VERSION
 
-      - name: Run NSIS
-        shell: pwsh
-        if: always()
-        run: |
-          Set-StrictMode -Version Latest
-          $ErrorActionPreference = "Stop"
-          makensis setup.nsi
+  #     - name: Run NSIS
+  #       shell: pwsh
+  #       if: always()
+  #       run: |
+  #         Set-StrictMode -Version Latest
+  #         $ErrorActionPreference = "Stop"
+  #         makensis setup.nsi
 
-      - name: List output
-        run: ls -R dist
+  #     - name: List output
+  #       run: ls -R dist
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Python-Installer-windows
-          path: dist/*Setup*.exe
-
-
-  build-application-linux-debian:
-    strategy:
-      matrix:
-        os: ["22.04", "20.04"]
-      fail-fast: false
-    name: "Build Application Linux - Ubuntu ${{ matrix.os }}"
-    runs-on: ubuntu-${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
-
-      - name: Install Linux Dependencies
-        run: |
-          sudo apt update
-          sudo apt install aptitude -y;
-          sudo aptitude install libfontconfig1-dev \
-            libfreetype6-dev \
-            libx11-dev \
-            libx11-xcb-dev \
-            libxext-dev \
-            libxfixes-dev \
-            libxi-dev \
-            libxrender-dev \
-            libxcb1-dev \
-            libxcb-glx0-dev \
-            libxcb-keysyms1-dev \
-            libxcb-image0-dev \
-            libxcb-shm0-dev \
-            libxcb-icccm4-dev \
-            libxcb-sync-dev \
-            libxcb-xfixes0-dev \
-            libxcb-shape0-dev \
-            libxcb-randr0-dev \
-            libxcb-render-util0-dev \
-            libxcb-cursor-dev \
-            libxcb-util-dev \
-            libxcb-xkb-dev \
-            libxcb-xinerama0-dev \
-            libxkbcommon-dev \
-            libxkbcommon-x11-dev \
-            -y
-          sudo apt install ruby -y
-          sudo gem install fpm
-
-      - name: Ubuntu-20.04 dependencies
-        if: matrix.os == '20.04'
-        run: |
-          sudo add-apt-repository ppa:okirby/qt6-backports -y
-          sudo apt update
-          sudo apt install qt6-base-dev -y
-
-          wget http://archive.ubuntu.com/ubuntu/pool/main/libf/libffi/libffi8_3.4.2-4_amd64.deb
-          sudo apt install ./libffi8_3.4.2-4_amd64.deb
-
-          wget http://archive.ubuntu.com/ubuntu/pool/main/w/wayland/libwayland-client0_1.20.0-1_amd64.deb
-          sudo apt install ./libwayland-client0_1.20.0-1_amd64.deb
+  #     - uses: actions/upload-artifact@v4
+  #       with:
+  #         name: Python-Installer-windows
+  #         path: dist/*Setup*.exe
 
 
-      - name: Create python-3.11 artifact
-        run: |
-          mkdir -p cd ${HOME}/.cache
-          cd ${HOME}/.cache
-          wget https://www.python.org/ftp/python/${{ env.PRECOMPILE_PYTHON_VERSION }}/Python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.xz
-          tar -xf Python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.xz
-          cd Python-${{ env.PRECOMPILE_PYTHON_VERSION }}
-          ./configure --prefix=${HOME}/python-${{ env.PRECOMPILE_PYTHON_VERSION }}
-          cd ${HOME}/.cache/Python-${{ env.PRECOMPILE_PYTHON_VERSION }}
-          make;
-          make install;
-          cd ${HOME}/python-${{ env.PRECOMPILE_PYTHON_VERSION }}
-          cd ..
-          tar -czf python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.gz python-${{ env.PRECOMPILE_PYTHON_VERSION }}/
-          mkdir -p ${RUNNER_WORKSPACE}/python-installer-qt-gui/src/ansys/tools/installer/assets/python-asset/${{ matrix.os }}
-          mv python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.gz ${RUNNER_WORKSPACE}/python-installer-qt-gui/src/ansys/tools/installer/assets/python-asset/${{ matrix.os }}
-          ls -l ${RUNNER_WORKSPACE}/python-installer-qt-gui/src/ansys/tools/installer/assets/python-asset/${{ matrix.os }}
+  # build-application-linux-debian:
+  #   strategy:
+  #     matrix:
+  #       os: ["22.04", "20.04"]
+  #     fail-fast: false
+  #   name: "Build Application Linux - Ubuntu ${{ matrix.os }}"
+  #   runs-on: ubuntu-${{ matrix.os }}
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - name: Install Dependencies
-        run: pip install -e .[freeze]
+  #     - uses: actions/setup-python@v5
+  #       with:
+  #         python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
-      - name: Freeze application
-        env:
-          ADD_PYTHON_BINARIES: true
-        run: pyinstaller frozen.spec
+  #     - name: Install Linux Dependencies
+  #       run: |
+  #         sudo apt update
+  #         sudo apt install aptitude -y;
+  #         sudo aptitude install libfontconfig1-dev \
+  #           libfreetype6-dev \
+  #           libx11-dev \
+  #           libx11-xcb-dev \
+  #           libxext-dev \
+  #           libxfixes-dev \
+  #           libxi-dev \
+  #           libxrender-dev \
+  #           libxcb1-dev \
+  #           libxcb-glx0-dev \
+  #           libxcb-keysyms1-dev \
+  #           libxcb-image0-dev \
+  #           libxcb-shm0-dev \
+  #           libxcb-icccm4-dev \
+  #           libxcb-sync-dev \
+  #           libxcb-xfixes0-dev \
+  #           libxcb-shape0-dev \
+  #           libxcb-randr0-dev \
+  #           libxcb-render-util0-dev \
+  #           libxcb-cursor-dev \
+  #           libxcb-util-dev \
+  #           libxcb-xkb-dev \
+  #           libxcb-xinerama0-dev \
+  #           libxkbcommon-dev \
+  #           libxkbcommon-x11-dev \
+  #           -y
+  #         sudo apt install ruby -y
+  #         sudo gem install fpm
 
-      - name: Setup and Copy Linux files for packaging
-        run: |
-          mkdir -p package/opt
-          mkdir -p package/share/applications
-          mkdir -p package/share/icons
-          cp -r dist/ansys_python_manager package/opt/ansys_python_manager
-          cp src/ansys/tools/installer/assets/pyansys_icon.svg package/share/icons/pyansys_icon.svg
-          cp linux/debian/ansys_python_manager_prebuid.desktop package/share/applications
-          find package/opt/ansys_python_manager -type f -exec chmod 644 -- {} +
-          find package/opt/ansys_python_manager -type d -exec chmod 755 -- {} +
-          find package/share -type f -exec chmod 644 -- {} +
-          chmod +x package/opt/ansys_python_manager/ansys_python_manager
-          chmod +x package/opt/ansys_python_manager/_internal/assets/uninstaller_ubuntu.sh
-          version=v`cat ./src/ansys/tools/installer/VERSION`
-          echo "APPLICATION_VERSION=$version" >> $GITHUB_ENV
-          fpm -v $version --fpm-options-file linux/debian/fpm-options-debian
+  #     - name: Ubuntu-20.04 dependencies
+  #       if: matrix.os == '20.04'
+  #       run: |
+  #         sudo add-apt-repository ppa:okirby/qt6-backports -y
+  #         sudo apt update
+  #         sudo apt install qt6-base-dev -y
 
-      - name: Create zip file
-        run: |
-          cp linux/debian/installer.sh installer.sh
-          cp linux/debian/postInstallScript.sh postInstallScript.sh
-          chmod +x installer.sh postInstallScript.sh ansys_python_manager.deb
-          ls -l
-          os_version_processed=`echo ${{ matrix.os }} | sed 's/\./_/g'`
-          echo "OS_VERSION_PROCESSED=$os_version_processed" >> $GITHUB_ENV
-          zip -r Ansys-Python-Manager_linux_${os_version_processed}_${{ env.APPLICATION_VERSION }}.zip  ansys_python_manager.deb installer.sh postInstallScript.sh
+  #         wget http://archive.ubuntu.com/ubuntu/pool/main/libf/libffi/libffi8_3.4.2-4_amd64.deb
+  #         sudo apt install ./libffi8_3.4.2-4_amd64.deb
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Python-Installer-ubuntu_${{ matrix.os }}
-          path: |
-            Ansys-Python-Manager_linux_${{ env.OS_VERSION_PROCESSED }}_${{ env.APPLICATION_VERSION }}.zip
+  #         wget http://archive.ubuntu.com/ubuntu/pool/main/w/wayland/libwayland-client0_1.20.0-1_amd64.deb
+  #         sudo apt install ./libwayland-client0_1.20.0-1_amd64.deb
+
+
+  #     - name: Create python-3.11 artifact
+  #       run: |
+  #         mkdir -p cd ${HOME}/.cache
+  #         cd ${HOME}/.cache
+  #         wget https://www.python.org/ftp/python/${{ env.PRECOMPILE_PYTHON_VERSION }}/Python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.xz
+  #         tar -xf Python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.xz
+  #         cd Python-${{ env.PRECOMPILE_PYTHON_VERSION }}
+  #         ./configure --prefix=${HOME}/python-${{ env.PRECOMPILE_PYTHON_VERSION }}
+  #         cd ${HOME}/.cache/Python-${{ env.PRECOMPILE_PYTHON_VERSION }}
+  #         make;
+  #         make install;
+  #         cd ${HOME}/python-${{ env.PRECOMPILE_PYTHON_VERSION }}
+  #         cd ..
+  #         tar -czf python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.gz python-${{ env.PRECOMPILE_PYTHON_VERSION }}/
+  #         mkdir -p ${RUNNER_WORKSPACE}/python-installer-qt-gui/src/ansys/tools/installer/assets/python-asset/${{ matrix.os }}
+  #         mv python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.gz ${RUNNER_WORKSPACE}/python-installer-qt-gui/src/ansys/tools/installer/assets/python-asset/${{ matrix.os }}
+  #         ls -l ${RUNNER_WORKSPACE}/python-installer-qt-gui/src/ansys/tools/installer/assets/python-asset/${{ matrix.os }}
+
+  #     - name: Install Dependencies
+  #       run: pip install -e .[freeze]
+
+  #     - name: Freeze application
+  #       env:
+  #         ADD_PYTHON_BINARIES: true
+  #       run: pyinstaller frozen.spec
+
+  #     - name: Setup and Copy Linux files for packaging
+  #       run: |
+  #         mkdir -p package/opt
+  #         mkdir -p package/share/applications
+  #         mkdir -p package/share/icons
+  #         cp -r dist/ansys_python_manager package/opt/ansys_python_manager
+  #         cp src/ansys/tools/installer/assets/pyansys_icon.svg package/share/icons/pyansys_icon.svg
+  #         cp linux/debian/ansys_python_manager_prebuid.desktop package/share/applications
+  #         find package/opt/ansys_python_manager -type f -exec chmod 644 -- {} +
+  #         find package/opt/ansys_python_manager -type d -exec chmod 755 -- {} +
+  #         find package/share -type f -exec chmod 644 -- {} +
+  #         chmod +x package/opt/ansys_python_manager/ansys_python_manager
+  #         chmod +x package/opt/ansys_python_manager/_internal/assets/uninstaller_ubuntu.sh
+  #         version=v`cat ./src/ansys/tools/installer/VERSION`
+  #         echo "APPLICATION_VERSION=$version" >> $GITHUB_ENV
+  #         fpm -v $version --fpm-options-file linux/debian/fpm-options-debian
+
+  #     - name: Create zip file
+  #       run: |
+  #         cp linux/debian/installer.sh installer.sh
+  #         cp linux/debian/postInstallScript.sh postInstallScript.sh
+  #         chmod +x installer.sh postInstallScript.sh ansys_python_manager.deb
+  #         ls -l
+  #         os_version_processed=`echo ${{ matrix.os }} | sed 's/\./_/g'`
+  #         echo "OS_VERSION_PROCESSED=$os_version_processed" >> $GITHUB_ENV
+  #         zip -r Ansys-Python-Manager_linux_${os_version_processed}_${{ env.APPLICATION_VERSION }}.zip  ansys_python_manager.deb installer.sh postInstallScript.sh
+
+  #     - uses: actions/upload-artifact@v4
+  #       with:
+  #         name: Python-Installer-ubuntu_${{ matrix.os }}
+  #         path: |
+  #           Ansys-Python-Manager_linux_${{ env.OS_VERSION_PROCESSED }}_${{ env.APPLICATION_VERSION }}.zip
 
 
   build-application-linux-non-debian:
@@ -253,7 +253,7 @@ jobs:
         if: contains(matrix.os, 'centos') || contains(matrix.os, 'fedora')
         run: |
           yum update -y
-          yum groupinstall "Development Tools" -y
+          yum group install "Development Tools" -y
           yum install python3 \
             python3-pip \
             wget \
@@ -295,204 +295,204 @@ jobs:
           yum install ruby -y
           gem install fpm
 
-      - name: Create OS version, Github Workspace, Folder Name variables
-        run: |
-          os_version_processed=`echo ${{ matrix.os }} | sed 's/\:/_/g' | sed 's/\./_/g' | awk -F/ '{print $NF}'`
-          echo "OS_VERSION_PROCESSED=$os_version_processed" >> $GITHUB_ENV
-          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE" >> $GITHUB_ENV
-          folder_name=`echo $os_version_processed | awk -F_ '{print $1}'`
-          echo "FOLDER_NAME=$folder_name" >> $GITHUB_ENV
+      # - name: Create OS version, Github Workspace, Folder Name variables
+      #   run: |
+      #     os_version_processed=`echo ${{ matrix.os }} | sed 's/\:/_/g' | sed 's/\./_/g' | awk -F/ '{print $NF}'`
+      #     echo "OS_VERSION_PROCESSED=$os_version_processed" >> $GITHUB_ENV
+      #     echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+      #     folder_name=`echo $os_version_processed | awk -F_ '{print $1}'`
+      #     echo "FOLDER_NAME=$folder_name" >> $GITHUB_ENV
 
-      - name: Create python-3.11 artifact
-        run: |
-          mkdir -p cd ${{ env.GITHUB_WORKSPACE }}/.cache
-          cd ${{ env.GITHUB_WORKSPACE }}/.cache
-          wget https://www.python.org/ftp/python/${{ env.PRECOMPILE_PYTHON_VERSION }}/Python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.xz
-          tar -xf Python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.xz
-          cd Python-${{ env.PRECOMPILE_PYTHON_VERSION }}
-          ./configure --prefix=${{ env.GITHUB_WORKSPACE }}/python-${{ env.PRECOMPILE_PYTHON_VERSION }}
-          cd ${{ env.GITHUB_WORKSPACE }}/.cache/Python-${{ env.PRECOMPILE_PYTHON_VERSION }}
-          make;
-          make install;
-          cd ${{ env.GITHUB_WORKSPACE }}/python-${{ env.PRECOMPILE_PYTHON_VERSION }}
-          cd ..
-          tar -czf python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.gz python-${{ env.PRECOMPILE_PYTHON_VERSION }}/
-          mkdir -p ${{ env.GITHUB_WORKSPACE }}/src/ansys/tools/installer/assets/python-asset/${{ env.FOLDER_NAME }}
-          mv python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.gz ${{ env.GITHUB_WORKSPACE }}/src/ansys/tools/installer/assets/python-asset/${{ env.FOLDER_NAME }}
-          ls -l ${{ env.GITHUB_WORKSPACE }}/src/ansys/tools/installer/assets/python-asset/${{ env.FOLDER_NAME }}
+      # - name: Create python-3.11 artifact
+      #   run: |
+      #     mkdir -p cd ${{ env.GITHUB_WORKSPACE }}/.cache
+      #     cd ${{ env.GITHUB_WORKSPACE }}/.cache
+      #     wget https://www.python.org/ftp/python/${{ env.PRECOMPILE_PYTHON_VERSION }}/Python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.xz
+      #     tar -xf Python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.xz
+      #     cd Python-${{ env.PRECOMPILE_PYTHON_VERSION }}
+      #     ./configure --prefix=${{ env.GITHUB_WORKSPACE }}/python-${{ env.PRECOMPILE_PYTHON_VERSION }}
+      #     cd ${{ env.GITHUB_WORKSPACE }}/.cache/Python-${{ env.PRECOMPILE_PYTHON_VERSION }}
+      #     make;
+      #     make install;
+      #     cd ${{ env.GITHUB_WORKSPACE }}/python-${{ env.PRECOMPILE_PYTHON_VERSION }}
+      #     cd ..
+      #     tar -czf python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.gz python-${{ env.PRECOMPILE_PYTHON_VERSION }}/
+      #     mkdir -p ${{ env.GITHUB_WORKSPACE }}/src/ansys/tools/installer/assets/python-asset/${{ env.FOLDER_NAME }}
+      #     mv python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.gz ${{ env.GITHUB_WORKSPACE }}/src/ansys/tools/installer/assets/python-asset/${{ env.FOLDER_NAME }}
+      #     ls -l ${{ env.GITHUB_WORKSPACE }}/src/ansys/tools/installer/assets/python-asset/${{ env.FOLDER_NAME }}
 
-      - name: Update pip
-        run: |
-          python3 -m pip install pip -U
+      # - name: Update pip
+      #   run: |
+      #     python3 -m pip install pip -U
 
-      - name: Install pip Dependencies
-        run: |
-          python3 -m pip install --ignore-installed -e .[freeze]
+      # - name: Install pip Dependencies
+      #   run: |
+      #     python3 -m pip install --ignore-installed -e .[freeze]
 
-      - name: Freeze application
-        env:
-          ADD_PYTHON_BINARIES: false
-        run: python3 -m PyInstaller frozen.spec
+      # - name: Freeze application
+      #   env:
+      #     ADD_PYTHON_BINARIES: false
+      #   run: python3 -m PyInstaller frozen.spec
 
-      - name: Setup and Copy CentOS/RHEL files for packaging
-        if: contains(matrix.os, 'centos')
-        run: |
-          yum install xorg-x11-utils -y
-          mkdir -p package_CentOS/opt
-          mkdir -p package_CentOS/usr/share/applications
-          mkdir -p package_CentOS/usr/share/icons/hicolor/scalable/apps
-          chmod +x src/ansys/tools/installer/assets/scripts/uninstaller_yum.sh
-          cp -r dist/ansys_python_manager package_CentOS/opt/ansys_python_manager
-          cp src/ansys/tools/installer/assets/pyansys_icon.svg package_CentOS/usr/share/icons/hicolor/scalable/apps/pyansys_icon.svg
-          cp linux/non-debian/ansys_python_manager.desktop package_CentOS/usr/share/applications
-          find package_CentOS/opt/ansys_python_manager -type f -exec chmod 644 -- {} +
-          find package_CentOS/opt/ansys_python_manager -type d -exec chmod 755 -- {} +
-          find package_CentOS/usr/share -type f -exec chmod 644 -- {} +
-          chmod +x package_CentOS/opt/ansys_python_manager/ansys_python_manager
-          version=v`cat ./src/ansys/tools/installer/VERSION`
-          echo "APPLICATION_VERSION=$version" >> $GITHUB_ENV
-          fpm -v $version --fpm-options-file linux/non-debian/fpm-options-centos
-          cp ./linux/non-debian/installer_CentOS.sh installer_CentOS.sh
-          cp ./linux/non-debian/updater_CentOS.sh updater_CentOS.sh
-          chmod +x installer_CentOS.sh updater_CentOS.sh ansys_python_manager_CentOS.rpm
-          zip -r ${{ env.GITHUB_WORKSPACE }}/Ansys-Python-Manager_linux_${{ env.OS_VERSION_PROCESSED }}_${version}.zip ansys_python_manager_CentOS.rpm installer_CentOS.sh updater_CentOS.sh
-          ls -l ${{ env.GITHUB_WORKSPACE }}
+      # - name: Setup and Copy CentOS/RHEL files for packaging
+      #   if: contains(matrix.os, 'centos')
+      #   run: |
+      #     yum install xorg-x11-utils -y
+      #     mkdir -p package_CentOS/opt
+      #     mkdir -p package_CentOS/usr/share/applications
+      #     mkdir -p package_CentOS/usr/share/icons/hicolor/scalable/apps
+      #     chmod +x src/ansys/tools/installer/assets/scripts/uninstaller_yum.sh
+      #     cp -r dist/ansys_python_manager package_CentOS/opt/ansys_python_manager
+      #     cp src/ansys/tools/installer/assets/pyansys_icon.svg package_CentOS/usr/share/icons/hicolor/scalable/apps/pyansys_icon.svg
+      #     cp linux/non-debian/ansys_python_manager.desktop package_CentOS/usr/share/applications
+      #     find package_CentOS/opt/ansys_python_manager -type f -exec chmod 644 -- {} +
+      #     find package_CentOS/opt/ansys_python_manager -type d -exec chmod 755 -- {} +
+      #     find package_CentOS/usr/share -type f -exec chmod 644 -- {} +
+      #     chmod +x package_CentOS/opt/ansys_python_manager/ansys_python_manager
+      #     version=v`cat ./src/ansys/tools/installer/VERSION`
+      #     echo "APPLICATION_VERSION=$version" >> $GITHUB_ENV
+      #     fpm -v $version --fpm-options-file linux/non-debian/fpm-options-centos
+      #     cp ./linux/non-debian/installer_CentOS.sh installer_CentOS.sh
+      #     cp ./linux/non-debian/updater_CentOS.sh updater_CentOS.sh
+      #     chmod +x installer_CentOS.sh updater_CentOS.sh ansys_python_manager_CentOS.rpm
+      #     zip -r ${{ env.GITHUB_WORKSPACE }}/Ansys-Python-Manager_linux_${{ env.OS_VERSION_PROCESSED }}_${version}.zip ansys_python_manager_CentOS.rpm installer_CentOS.sh updater_CentOS.sh
+      #     ls -l ${{ env.GITHUB_WORKSPACE }}
 
-      - name: Setup and Copy Fedora files for packaging
-        if: contains(matrix.os, 'fedora')
-        run: |
-          mkdir -p package_Fedora/opt
-          mkdir -p package_Fedora/usr/share/applications
-          mkdir -p package_Fedora/usr/share/icons/hicolor/scalable/apps
-          chmod +x src/ansys/tools/installer/assets/scripts/uninstaller_yum.sh
-          cp -r dist/ansys_python_manager package_Fedora/opt/ansys_python_manager
-          cp src/ansys/tools/installer/assets/pyansys_icon.svg package_Fedora/usr/share/icons/hicolor/scalable/apps/pyansys_icon.svg
-          cp linux/non-debian/ansys_python_manager.desktop package_Fedora/usr/share/applications
-          find package_Fedora/opt/ansys_python_manager -type f -exec chmod 644 -- {} +
-          find package_Fedora/opt/ansys_python_manager -type d -exec chmod 755 -- {} +
-          find package_Fedora/usr/share -type f -exec chmod 644 -- {} +
-          chmod +x package_Fedora/opt/ansys_python_manager/ansys_python_manager
-          version=v`cat ./src/ansys/tools/installer/VERSION`
-          echo "APPLICATION_VERSION=$version" >> $GITHUB_ENV
-          fpm -v $version --fpm-options-file linux/non-debian/fpm-options-fedora
-          cp ./linux/non-debian/installer_CentOS.sh installer_Fedora.sh
-          cp ./linux/non-debian/updater_CentOS.sh updater_Fedora.sh
-          chmod +x installer_Fedora.sh updater_Fedora.sh ansys_python_manager_Fedora.rpm
-          zip -r ${{ env.GITHUB_WORKSPACE }}/Ansys-Python-Manager_linux_${{ env.OS_VERSION_PROCESSED }}_${version}.zip ansys_python_manager_Fedora.rpm installer_Fedora.sh updater_Fedora.sh
-          ls -l ${{ env.GITHUB_WORKSPACE }}
+      # - name: Setup and Copy Fedora files for packaging
+      #   if: contains(matrix.os, 'fedora')
+      #   run: |
+      #     mkdir -p package_Fedora/opt
+      #     mkdir -p package_Fedora/usr/share/applications
+      #     mkdir -p package_Fedora/usr/share/icons/hicolor/scalable/apps
+      #     chmod +x src/ansys/tools/installer/assets/scripts/uninstaller_yum.sh
+      #     cp -r dist/ansys_python_manager package_Fedora/opt/ansys_python_manager
+      #     cp src/ansys/tools/installer/assets/pyansys_icon.svg package_Fedora/usr/share/icons/hicolor/scalable/apps/pyansys_icon.svg
+      #     cp linux/non-debian/ansys_python_manager.desktop package_Fedora/usr/share/applications
+      #     find package_Fedora/opt/ansys_python_manager -type f -exec chmod 644 -- {} +
+      #     find package_Fedora/opt/ansys_python_manager -type d -exec chmod 755 -- {} +
+      #     find package_Fedora/usr/share -type f -exec chmod 644 -- {} +
+      #     chmod +x package_Fedora/opt/ansys_python_manager/ansys_python_manager
+      #     version=v`cat ./src/ansys/tools/installer/VERSION`
+      #     echo "APPLICATION_VERSION=$version" >> $GITHUB_ENV
+      #     fpm -v $version --fpm-options-file linux/non-debian/fpm-options-fedora
+      #     cp ./linux/non-debian/installer_CentOS.sh installer_Fedora.sh
+      #     cp ./linux/non-debian/updater_CentOS.sh updater_Fedora.sh
+      #     chmod +x installer_Fedora.sh updater_Fedora.sh ansys_python_manager_Fedora.rpm
+      #     zip -r ${{ env.GITHUB_WORKSPACE }}/Ansys-Python-Manager_linux_${{ env.OS_VERSION_PROCESSED }}_${version}.zip ansys_python_manager_Fedora.rpm installer_Fedora.sh updater_Fedora.sh
+      #     ls -l ${{ env.GITHUB_WORKSPACE }}
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Python-Installer-${{ env.OS_VERSION_PROCESSED }}
-          path: |
-            ${{ env.GITHUB_WORKSPACE }}/Ansys-Python-Manager_linux_${{ env.OS_VERSION_PROCESSED }}_${{ env.APPLICATION_VERSION }}.zip
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: Python-Installer-${{ env.OS_VERSION_PROCESSED }}
+      #     path: |
+      #       ${{ env.GITHUB_WORKSPACE }}/Ansys-Python-Manager_linux_${{ env.OS_VERSION_PROCESSED }}_${{ env.APPLICATION_VERSION }}.zip
 
-  sign-application-windows:
-    name: Sign application
-    needs: [build-application-windows]
-    runs-on:
-      group: ansys-network
-      labels: [self-hosted, Windows, signtool]
-    steps:
-      - name: Checkout the SignTool
-        uses: actions/checkout@v4
-        with:
-          repository: ansys-internal/signtool-ansys-apps
-          token: ${{ secrets.SIGNTOOL_ACCESS_TOKEN }}
+  # sign-application-windows:
+  #   name: Sign application
+  #   needs: [build-application-windows]
+  #   runs-on:
+  #     group: ansys-network
+  #     labels: [self-hosted, Windows, signtool]
+  #   steps:
+  #     - name: Checkout the SignTool
+  #       uses: actions/checkout@v4
+  #       with:
+  #         repository: ansys-internal/signtool-ansys-apps
+  #         token: ${{ secrets.SIGNTOOL_ACCESS_TOKEN }}
 
-      - uses: actions/download-artifact@v4
-        with:
-          name: Python-Installer-windows
-          path: signtool/installer
+  #     - uses: actions/download-artifact@v4
+  #       with:
+  #         name: Python-Installer-windows
+  #         path: signtool/installer
 
-      - name: List current structure
-        run: ls -R
+  #     - name: List current structure
+  #       run: ls -R
 
-      - name: Sign application
-        working-directory: signtool
-        run: |
-          $filename = (get-ChildItem installer -recurse | where {$_.name -like "*Setup*"}).Name
-          $jobname = $filename -replace ".{4}$"
-          dotnet signclient.dll sign `
-            -r ansyssigning@ansys.com `
-            -s '${{ secrets.SIGNTOOL_PWD }}' `
-            -c AppSettings.json `
-            -n $jobname `
-            -i installer/$filename
+  #     - name: Sign application
+  #       working-directory: signtool
+  #       run: |
+  #         $filename = (get-ChildItem installer -recurse | where {$_.name -like "*Setup*"}).Name
+  #         $jobname = $filename -replace ".{4}$"
+  #         dotnet signclient.dll sign `
+  #           -r ansyssigning@ansys.com `
+  #           -s '${{ secrets.SIGNTOOL_PWD }}' `
+  #           -c AppSettings.json `
+  #           -n $jobname `
+  #           -i installer/$filename
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Python-Installer-windows-signed
-          path: signtool/installer/*Setup*.exe
+  #     - uses: actions/upload-artifact@v4
+  #       with:
+  #         name: Python-Installer-windows-signed
+  #         path: signtool/installer/*Setup*.exe
 
-  release:
-    name: Release application
-    if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
-    needs:
-      - sign-application-windows
-      - build-application-linux-debian
-      - build-application-linux-non-debian
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: Python-Installer-windows-signed
-          path: installer-signed
+  # release:
+  #   name: Release application
+  #   if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
+  #   needs:
+  #     - sign-application-windows
+  #     - build-application-linux-debian
+  #     - build-application-linux-non-debian
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/download-artifact@v4
+  #       with:
+  #         name: Python-Installer-windows-signed
+  #         path: installer-signed
 
-      - uses: actions/download-artifact@v4
-        with:
-          name: Python-Installer-windows
-          path: installer
+  #     - uses: actions/download-artifact@v4
+  #       with:
+  #         name: Python-Installer-windows
+  #         path: installer
 
-      - uses: actions/download-artifact@v4
-        with:
-          name: Python-Installer-ubuntu_20.04
-          path: installer
+  #     - uses: actions/download-artifact@v4
+  #       with:
+  #         name: Python-Installer-ubuntu_20.04
+  #         path: installer
 
-      - uses: actions/download-artifact@v4
-        with:
-          name: Python-Installer-ubuntu_22.04
-          path: installer
+  #     - uses: actions/download-artifact@v4
+  #       with:
+  #         name: Python-Installer-ubuntu_22.04
+  #         path: installer
 
-      - uses: actions/download-artifact@v4
-        with:
-          name: Python-Installer-centos_stream9
-          path: installer
+  #     - uses: actions/download-artifact@v4
+  #       with:
+  #         name: Python-Installer-centos_stream9
+  #         path: installer
 
-      - uses: actions/download-artifact@v4
-        with:
-          name: Python-Installer-fedora_latest
-          path: installer
+  #     - uses: actions/download-artifact@v4
+  #       with:
+  #         name: Python-Installer-fedora_latest
+  #         path: installer
 
-      - name: Display structure of downloaded files
-        run: ls -R
+  #     - name: Display structure of downloaded files
+  #       run: ls -R
 
-      - name: Rename unsigned exe
-        run: |
-          cd installer
-          for filename in *.exe; do mv "$filename" "Unsigned_${filename}"; done;
-          cd -
+  #     - name: Rename unsigned exe
+  #       run: |
+  #         cd installer
+  #         for filename in *.exe; do mv "$filename" "Unsigned_${filename}"; done;
+  #         cd -
 
-      - name: Release to GitHub
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            installer/*.zip
-            installer-signed/*.exe
-            installer/*.exe
-          generate_release_notes: true
+  #     - name: Release to GitHub
+  #       uses: softprops/action-gh-release@v2
+  #       with:
+  #         files: |
+  #           installer/*.zip
+  #           installer-signed/*.exe
+  #           installer/*.exe
+  #         generate_release_notes: true
 
-  doc-deploy-release:
-    name: Upload release documentation
-    if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
-    runs-on: ubuntu-latest
-    needs: [release, doc-build]
-    steps:
-      - name: Deploy the stable documentation
-        uses: ansys/actions/doc-deploy-stable@v8
-        with:
-          cname: ${{ env.DOCUMENTATION_CNAME }}
-          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-          bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
-          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
+  # doc-deploy-release:
+  #   name: Upload release documentation
+  #   if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
+  #   runs-on: ubuntu-latest
+  #   needs: [release, doc-build]
+  #   steps:
+  #     - name: Deploy the stable documentation
+  #       uses: ansys/actions/doc-deploy-stable@v8
+  #       with:
+  #         cname: ${{ env.DOCUMENTATION_CNAME }}
+  #         token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+  #         bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
+  #         bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
 
