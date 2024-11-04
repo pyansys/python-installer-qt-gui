@@ -249,11 +249,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install CentOS/Fedora Dependencies
-        if: contains(matrix.os, 'centos') || contains(matrix.os, 'fedora')
+      - name: Update and Install development tools - Fedora
+        if: contains(matrix.os, 'fedora')
         run: |
           yum update -y
           yum group install development-tools -y
+
+      - name: Update and Install development tools - Centos
+        if: contains(matrix.os, 'centos')
+        run: |
+          yum update -y
+          yum groupinstall "Development Tools" -y
+
+      - name: Install CentOS/Fedora Dependencies
+        if: contains(matrix.os, 'centos') || contains(matrix.os, 'fedora')
+        run: |          
           yum install python3 \
             python3-pip \
             wget \
