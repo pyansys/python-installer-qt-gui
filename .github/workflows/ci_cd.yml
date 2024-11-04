@@ -305,97 +305,97 @@ jobs:
           yum install ruby -y
           gem install fpm
 
-      # - name: Create OS version, Github Workspace, Folder Name variables
-      #   run: |
-      #     os_version_processed=`echo ${{ matrix.os }} | sed 's/\:/_/g' | sed 's/\./_/g' | awk -F/ '{print $NF}'`
-      #     echo "OS_VERSION_PROCESSED=$os_version_processed" >> $GITHUB_ENV
-      #     echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE" >> $GITHUB_ENV
-      #     folder_name=`echo $os_version_processed | awk -F_ '{print $1}'`
-      #     echo "FOLDER_NAME=$folder_name" >> $GITHUB_ENV
+      - name: Create OS version, Github Workspace, Folder Name variables
+        run: |
+          os_version_processed=`echo ${{ matrix.os }} | sed 's/\:/_/g' | sed 's/\./_/g' | awk -F/ '{print $NF}'`
+          echo "OS_VERSION_PROCESSED=$os_version_processed" >> $GITHUB_ENV
+          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+          folder_name=`echo $os_version_processed | awk -F_ '{print $1}'`
+          echo "FOLDER_NAME=$folder_name" >> $GITHUB_ENV
 
-      # - name: Create python-3.11 artifact
-      #   run: |
-      #     mkdir -p cd ${{ env.GITHUB_WORKSPACE }}/.cache
-      #     cd ${{ env.GITHUB_WORKSPACE }}/.cache
-      #     wget https://www.python.org/ftp/python/${{ env.PRECOMPILE_PYTHON_VERSION }}/Python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.xz
-      #     tar -xf Python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.xz
-      #     cd Python-${{ env.PRECOMPILE_PYTHON_VERSION }}
-      #     ./configure --prefix=${{ env.GITHUB_WORKSPACE }}/python-${{ env.PRECOMPILE_PYTHON_VERSION }}
-      #     cd ${{ env.GITHUB_WORKSPACE }}/.cache/Python-${{ env.PRECOMPILE_PYTHON_VERSION }}
-      #     make;
-      #     make install;
-      #     cd ${{ env.GITHUB_WORKSPACE }}/python-${{ env.PRECOMPILE_PYTHON_VERSION }}
-      #     cd ..
-      #     tar -czf python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.gz python-${{ env.PRECOMPILE_PYTHON_VERSION }}/
-      #     mkdir -p ${{ env.GITHUB_WORKSPACE }}/src/ansys/tools/installer/assets/python-asset/${{ env.FOLDER_NAME }}
-      #     mv python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.gz ${{ env.GITHUB_WORKSPACE }}/src/ansys/tools/installer/assets/python-asset/${{ env.FOLDER_NAME }}
-      #     ls -l ${{ env.GITHUB_WORKSPACE }}/src/ansys/tools/installer/assets/python-asset/${{ env.FOLDER_NAME }}
+      - name: Create python-3.11 artifact
+        run: |
+          mkdir -p cd ${{ env.GITHUB_WORKSPACE }}/.cache
+          cd ${{ env.GITHUB_WORKSPACE }}/.cache
+          wget https://www.python.org/ftp/python/${{ env.PRECOMPILE_PYTHON_VERSION }}/Python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.xz
+          tar -xf Python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.xz
+          cd Python-${{ env.PRECOMPILE_PYTHON_VERSION }}
+          ./configure --prefix=${{ env.GITHUB_WORKSPACE }}/python-${{ env.PRECOMPILE_PYTHON_VERSION }}
+          cd ${{ env.GITHUB_WORKSPACE }}/.cache/Python-${{ env.PRECOMPILE_PYTHON_VERSION }}
+          make;
+          make install;
+          cd ${{ env.GITHUB_WORKSPACE }}/python-${{ env.PRECOMPILE_PYTHON_VERSION }}
+          cd ..
+          tar -czf python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.gz python-${{ env.PRECOMPILE_PYTHON_VERSION }}/
+          mkdir -p ${{ env.GITHUB_WORKSPACE }}/src/ansys/tools/installer/assets/python-asset/${{ env.FOLDER_NAME }}
+          mv python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.gz ${{ env.GITHUB_WORKSPACE }}/src/ansys/tools/installer/assets/python-asset/${{ env.FOLDER_NAME }}
+          ls -l ${{ env.GITHUB_WORKSPACE }}/src/ansys/tools/installer/assets/python-asset/${{ env.FOLDER_NAME }}
 
-      # - name: Update pip
-      #   run: |
-      #     python3 -m pip install pip -U
+      - name: Update pip
+        run: |
+          python3 -m pip install pip -U
 
-      # - name: Install pip Dependencies
-      #   run: |
-      #     python3 -m pip install --ignore-installed -e .[freeze]
+      - name: Install pip Dependencies
+        run: |
+          python3 -m pip install --ignore-installed -e .[freeze]
 
-      # - name: Freeze application
-      #   env:
-      #     ADD_PYTHON_BINARIES: false
-      #   run: python3 -m PyInstaller frozen.spec
+      - name: Freeze application
+        env:
+          ADD_PYTHON_BINARIES: false
+        run: python3 -m PyInstaller frozen.spec
 
-      # - name: Setup and Copy CentOS/RHEL files for packaging
-      #   if: contains(matrix.os, 'centos')
-      #   run: |
-      #     yum install xorg-x11-utils -y
-      #     mkdir -p package_CentOS/opt
-      #     mkdir -p package_CentOS/usr/share/applications
-      #     mkdir -p package_CentOS/usr/share/icons/hicolor/scalable/apps
-      #     chmod +x src/ansys/tools/installer/assets/scripts/uninstaller_yum.sh
-      #     cp -r dist/ansys_python_manager package_CentOS/opt/ansys_python_manager
-      #     cp src/ansys/tools/installer/assets/pyansys_icon.svg package_CentOS/usr/share/icons/hicolor/scalable/apps/pyansys_icon.svg
-      #     cp linux/non-debian/ansys_python_manager.desktop package_CentOS/usr/share/applications
-      #     find package_CentOS/opt/ansys_python_manager -type f -exec chmod 644 -- {} +
-      #     find package_CentOS/opt/ansys_python_manager -type d -exec chmod 755 -- {} +
-      #     find package_CentOS/usr/share -type f -exec chmod 644 -- {} +
-      #     chmod +x package_CentOS/opt/ansys_python_manager/ansys_python_manager
-      #     version=v`cat ./src/ansys/tools/installer/VERSION`
-      #     echo "APPLICATION_VERSION=$version" >> $GITHUB_ENV
-      #     fpm -v $version --fpm-options-file linux/non-debian/fpm-options-centos
-      #     cp ./linux/non-debian/installer_CentOS.sh installer_CentOS.sh
-      #     cp ./linux/non-debian/updater_CentOS.sh updater_CentOS.sh
-      #     chmod +x installer_CentOS.sh updater_CentOS.sh ansys_python_manager_CentOS.rpm
-      #     zip -r ${{ env.GITHUB_WORKSPACE }}/Ansys-Python-Manager_linux_${{ env.OS_VERSION_PROCESSED }}_${version}.zip ansys_python_manager_CentOS.rpm installer_CentOS.sh updater_CentOS.sh
-      #     ls -l ${{ env.GITHUB_WORKSPACE }}
+      - name: Setup and Copy CentOS/RHEL files for packaging
+        if: contains(matrix.os, 'centos')
+        run: |
+          yum install xorg-x11-utils -y
+          mkdir -p package_CentOS/opt
+          mkdir -p package_CentOS/usr/share/applications
+          mkdir -p package_CentOS/usr/share/icons/hicolor/scalable/apps
+          chmod +x src/ansys/tools/installer/assets/scripts/uninstaller_yum.sh
+          cp -r dist/ansys_python_manager package_CentOS/opt/ansys_python_manager
+          cp src/ansys/tools/installer/assets/pyansys_icon.svg package_CentOS/usr/share/icons/hicolor/scalable/apps/pyansys_icon.svg
+          cp linux/non-debian/ansys_python_manager.desktop package_CentOS/usr/share/applications
+          find package_CentOS/opt/ansys_python_manager -type f -exec chmod 644 -- {} +
+          find package_CentOS/opt/ansys_python_manager -type d -exec chmod 755 -- {} +
+          find package_CentOS/usr/share -type f -exec chmod 644 -- {} +
+          chmod +x package_CentOS/opt/ansys_python_manager/ansys_python_manager
+          version=v`cat ./src/ansys/tools/installer/VERSION`
+          echo "APPLICATION_VERSION=$version" >> $GITHUB_ENV
+          fpm -v $version --fpm-options-file linux/non-debian/fpm-options-centos
+          cp ./linux/non-debian/installer_CentOS.sh installer_CentOS.sh
+          cp ./linux/non-debian/updater_CentOS.sh updater_CentOS.sh
+          chmod +x installer_CentOS.sh updater_CentOS.sh ansys_python_manager_CentOS.rpm
+          zip -r ${{ env.GITHUB_WORKSPACE }}/Ansys-Python-Manager_linux_${{ env.OS_VERSION_PROCESSED }}_${version}.zip ansys_python_manager_CentOS.rpm installer_CentOS.sh updater_CentOS.sh
+          ls -l ${{ env.GITHUB_WORKSPACE }}
 
-      # - name: Setup and Copy Fedora files for packaging
-      #   if: contains(matrix.os, 'fedora')
-      #   run: |
-      #     mkdir -p package_Fedora/opt
-      #     mkdir -p package_Fedora/usr/share/applications
-      #     mkdir -p package_Fedora/usr/share/icons/hicolor/scalable/apps
-      #     chmod +x src/ansys/tools/installer/assets/scripts/uninstaller_yum.sh
-      #     cp -r dist/ansys_python_manager package_Fedora/opt/ansys_python_manager
-      #     cp src/ansys/tools/installer/assets/pyansys_icon.svg package_Fedora/usr/share/icons/hicolor/scalable/apps/pyansys_icon.svg
-      #     cp linux/non-debian/ansys_python_manager.desktop package_Fedora/usr/share/applications
-      #     find package_Fedora/opt/ansys_python_manager -type f -exec chmod 644 -- {} +
-      #     find package_Fedora/opt/ansys_python_manager -type d -exec chmod 755 -- {} +
-      #     find package_Fedora/usr/share -type f -exec chmod 644 -- {} +
-      #     chmod +x package_Fedora/opt/ansys_python_manager/ansys_python_manager
-      #     version=v`cat ./src/ansys/tools/installer/VERSION`
-      #     echo "APPLICATION_VERSION=$version" >> $GITHUB_ENV
-      #     fpm -v $version --fpm-options-file linux/non-debian/fpm-options-fedora
-      #     cp ./linux/non-debian/installer_CentOS.sh installer_Fedora.sh
-      #     cp ./linux/non-debian/updater_CentOS.sh updater_Fedora.sh
-      #     chmod +x installer_Fedora.sh updater_Fedora.sh ansys_python_manager_Fedora.rpm
-      #     zip -r ${{ env.GITHUB_WORKSPACE }}/Ansys-Python-Manager_linux_${{ env.OS_VERSION_PROCESSED }}_${version}.zip ansys_python_manager_Fedora.rpm installer_Fedora.sh updater_Fedora.sh
-      #     ls -l ${{ env.GITHUB_WORKSPACE }}
+      - name: Setup and Copy Fedora files for packaging
+        if: contains(matrix.os, 'fedora')
+        run: |
+          mkdir -p package_Fedora/opt
+          mkdir -p package_Fedora/usr/share/applications
+          mkdir -p package_Fedora/usr/share/icons/hicolor/scalable/apps
+          chmod +x src/ansys/tools/installer/assets/scripts/uninstaller_yum.sh
+          cp -r dist/ansys_python_manager package_Fedora/opt/ansys_python_manager
+          cp src/ansys/tools/installer/assets/pyansys_icon.svg package_Fedora/usr/share/icons/hicolor/scalable/apps/pyansys_icon.svg
+          cp linux/non-debian/ansys_python_manager.desktop package_Fedora/usr/share/applications
+          find package_Fedora/opt/ansys_python_manager -type f -exec chmod 644 -- {} +
+          find package_Fedora/opt/ansys_python_manager -type d -exec chmod 755 -- {} +
+          find package_Fedora/usr/share -type f -exec chmod 644 -- {} +
+          chmod +x package_Fedora/opt/ansys_python_manager/ansys_python_manager
+          version=v`cat ./src/ansys/tools/installer/VERSION`
+          echo "APPLICATION_VERSION=$version" >> $GITHUB_ENV
+          fpm -v $version --fpm-options-file linux/non-debian/fpm-options-fedora
+          cp ./linux/non-debian/installer_CentOS.sh installer_Fedora.sh
+          cp ./linux/non-debian/updater_CentOS.sh updater_Fedora.sh
+          chmod +x installer_Fedora.sh updater_Fedora.sh ansys_python_manager_Fedora.rpm
+          zip -r ${{ env.GITHUB_WORKSPACE }}/Ansys-Python-Manager_linux_${{ env.OS_VERSION_PROCESSED }}_${version}.zip ansys_python_manager_Fedora.rpm installer_Fedora.sh updater_Fedora.sh
+          ls -l ${{ env.GITHUB_WORKSPACE }}
 
-      # - uses: actions/upload-artifact@v4
-      #   with:
-      #     name: Python-Installer-${{ env.OS_VERSION_PROCESSED }}
-      #     path: |
-      #       ${{ env.GITHUB_WORKSPACE }}/Ansys-Python-Manager_linux_${{ env.OS_VERSION_PROCESSED }}_${{ env.APPLICATION_VERSION }}.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Python-Installer-${{ env.OS_VERSION_PROCESSED }}
+          path: |
+            ${{ env.GITHUB_WORKSPACE }}/Ansys-Python-Manager_linux_${{ env.OS_VERSION_PROCESSED }}_${{ env.APPLICATION_VERSION }}.zip
 
   # sign-application-windows:
   #   name: Sign application
