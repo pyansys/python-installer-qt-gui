@@ -49,6 +49,7 @@ from ansys.tools.installer.constants import (
     PYTHON_VERSION_TEXT,
     UNABLE_TO_RETRIEVE_LATEST_VERSION_TEXT,
     VANILLA_PYTHON_VERSIONS,
+    UV_PYTHON_VERSIONS,
 )
 from ansys.tools.installer.create_virtual_environment import CreateVenvTab
 from ansys.tools.installer.installed_table import InstalledTab
@@ -200,6 +201,8 @@ class AnsysPythonInstaller(QtWidgets.QMainWindow):
         self.installation_type_select = QtWidgets.QComboBox()
         self.installation_type_select.addItem("Standard", "vanilla")
         self.installation_type_select.addItem("Conda (miniforge)", "miniconda")
+        self.installation_type_select.addItem("Astral UV", "uv")
+
         installation_type_layout.addWidget(self.installation_type_select)
         self.installation_type_select.currentIndexChanged.connect(
             self._install_type_changed
@@ -226,11 +229,10 @@ class AnsysPythonInstaller(QtWidgets.QMainWindow):
         python_version.setLayout(python_version_layout)
 
         self.python_version_select = QtWidgets.QComboBox()
-        for elem_key, elem_value in VANILLA_PYTHON_VERSIONS.items():
-            self.python_version_select.addItem(elem_key, elem_value)
-
+        
+        self._install_type_changed()
         # Set the default selection to the last Python version
-        VANILLA_PYTHON_VERSIONS
+        
         default_index = self.python_version_select.findText(
             list(VANILLA_PYTHON_VERSIONS.keys())[-1]
         )
@@ -415,12 +417,25 @@ class AnsysPythonInstaller(QtWidgets.QMainWindow):
         mbox.exec_()
 
     def _install_type_changed(self, *args):
+        """Handle the installation type change."""
+        self.python_version_select.clear()
         if self.installation_type_select.currentText() == "Standard":
+            for elem_key, elem_value in VANILLA_PYTHON_VERSIONS.items():
+                self.python_version_select.addItem(elem_key, elem_value)
+
             self.python_version_select.setEnabled(True)
         elif self.installation_type_select.currentText() == "Conda (miniforge)":
             default_index = self.python_version_select.findText("Python 3.10")
             self.python_version_select.setCurrentIndex(default_index)
             self.python_version_select.setEnabled(False)
+        elif self.installation_type_select.currentText() == "Astral UV":  
+            
+            for elem_key, elem_value in UV_PYTHON_VERSIONS.items():
+
+                self.python_version_select.addItem(elem_key, elem_value)      
+            default_index = self.python_version_select.findText("Python 3.10 [uv]")
+            self.python_version_select.setCurrentIndex(default_index)
+            self.python_version_select.setEnabled(True)
 
     def pbar_increment(self):
         """Increment the progress bar.

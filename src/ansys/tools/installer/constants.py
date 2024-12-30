@@ -229,3 +229,14 @@ VANILLA_PYTHON_VERSIONS = {
 }
 
 CONDA_PYTHON_VERSION = "24.1.2-0"
+
+
+UV_PYTHON_VERSIONS = {
+    "Python 3.8 [uv]": "3.8",
+    "Python 3.9 [uv]": "3.9",
+    "Python 3.10 [uv]": "3.10",
+    "Python 3.11 [uv]": "3.11",
+    "Python 3.12 [uv]": "3.12",
+    "Python 3.13 [uv]": "3.13",
+
+}
