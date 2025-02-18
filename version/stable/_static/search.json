@@ -1,0 +1,226 @@
+[
+    {
+        "objectID": "user_guide",
+        "href": "user_guide.html#user-guide",
+        "title": "User guide",
+        "section": "User guide",
+        "text": "User guide"
+    },
+    {
+        "objectID": "user_guide",
+        "href": "user_guide.html#introduction",
+        "title": "User guide > Introduction",
+        "section": "Introduction",
+        "text": "Python has emerged as a leading language for a diverse range of\napplications, encompassing data science, machine learning, web\ndevelopment, and workflow automation. PyAnsys is a set of Python package\nthat aligns with this trend, offering a Pythonic interface to Ansys\nProducts. It serves as a powerful tool for automating engineering\nworkflows, conducting parametric studies, and post-processing simulation\nresults, among other applications. However, configuring Python\nenvironments and handling dependencies can occasionally prove to be\ndaunting. This is where Ansys Python Manager comes to play.\nIntroduction"
+    },
+    {
+        "objectID": "user_guide",
+        "href": "user_guide.html#what-is-the-ansys-python-manager",
+        "title": "User guide > What is the Ansys Python Manager?",
+        "section": "What is the Ansys Python Manager?",
+        "text": "The Ansys Python Manager is a collaborative open source Python QT\napp developed by various groups within Ansys. This efficient\ntool has garnered significant popularity and received positive feedback\nfor its capability to streamline Python usage, simplify virtual\nenvironment management, and facilitate PyAnsys packages administration.\nIn this user guide, various features offered by the Ansys Python Manager are explored,\nsuch as Python installation, creation and management of virtual environments,\nand the available ways to initiate Integrated Development Environments (IDEs)\n& Development environments. This user guide further explore the package management capabilities\nof the Ansys Python Manager, including the installation of PyAnsys packages and the\nmanagement of dependencies. Finally, this user guide offers information on accessing\nPyAnsys documentation through the Ansys Python Manager, as well as the options available\nfor updating the app.\nWhat is the Ansys Python Manager?"
+    },
+    {
+        "objectID": "user_guide",
+        "href": "user_guide.html#installation",
+        "title": "User guide > Installation",
+        "section": "Installation",
+        "text": "To install the Ansys Python Manager, you can visit its\nrepository\nand download the installer from the latest release\n(Ansys-Python-Manager-Setup-v*.exe) from the Assets section. After\ndownloading the installer, simply run it and follow the installation\ninstructions to install the Ansys Python Manager on your machine. Once\nthe installation is complete, you can easily launch the Ansys Python\nManager from the Start Menu.\nInstallation\nAnsys-Python-Manager-Setup-v*.exe"
+    },
+    {
+        "objectID": "user_guide",
+        "href": "user_guide.html#install-python-tab",
+        "title": "User guide > Install python tab",
+        "section": "Install python tab",
+        "text": "The Ansys Python Manager offers a user-friendly interface for Python\ninstallation. You can easily select the desired Python version from the\nprovided drop-down menu. The manager provides two options: standard\nPython and conda-forge python. The standard Python option is the\nofficial Python distribution, while the conda-forge Python option uses the\ncommunity-driven distribution used with products like Anaconda.\nAfter selecting the desired Python version and clicking the Install\nbutton in the Ansys Python Manager, then the app proceeds to\ndownload and install the chosen Python distribution. The installation\nprocess may take a few minutes to complete. Once the installation is\nfinished, the Ansys Python Manager subsequently displays the installed Python\nversion and its corresponding installation path in the next tab labeled\n“Create Virtual Environments.”\nInstall python tab"
+    },
+    {
+        "objectID": "user_guide",
+        "href": "user_guide.html#create-virtual-environments-tab",
+        "title": "User guide > Create virtual environments tab",
+        "section": "Create virtual environments tab",
+        "text": "The “Create Virtual Environments” tab in the Ansys Python Manager\nprovides the interface for creating and managing virtual environments.\nYou can easily create a virtual environment by selecting the desired\nPython version and providing a name for the environment. Simply click\nthe Create button to initiate the virtual environment creation process.\nThe Ansys Python Manager creates the virtual environment and display\nits corresponding path in the subsequent tab labeled “Manage Virtual\nEnvironments.”\nCreate virtual environments tab"
+    },
+    {
+        "objectID": "user_guide",
+        "href": "user_guide.html#manage-virtual-environments-tab",
+        "title": "User guide > Manage virtual environments tab",
+        "section": "Manage virtual environments tab",
+        "text": "The “Manage Virtual Environments” tab in the Ansys Python Manager allows\nyou to effectively manage the virtual environments you have created. You\nhave options available, such as deleting a virtual environment, Launch\nOptions, General Package Management, and PyAnsys Package Management for\nthe selected virtual environment. You can also delete a virtual\nenvironment by selecting it from the available list under “Available\nvirtual environments” and clicking on the “Delete virtual environments”\noption available with context menu.\nLaunch options provides the option to launch the selected virtual\nenvironment with the available IDEs and development environments. For\nexample, you can launch the Spyder IDE by selecting the virtual\nenvironment from the available list and clicking on the\nLaunch Spyder option. Likewise, you can launch the Jupyter Notebook,\nJupyter Lab and console.\nTip: By using Launch console option, you can launch the\nvirtual environment in the command prompt and subsequently navigate\nto the development folder and launch the VS Code IDEs using command\nline option “code .” And set the interpreter to the virtual\nenvironment.\nManage virtual environments tab\nLaunch options\nLaunch Spyder\nLaunch console\ncode ."
+    },
+    {
+        "objectID": "user_guide",
+        "href": "user_guide.html#general-package-management",
+        "title": "User guide > General package management",
+        "section": "General package management",
+        "text": "In the “General Package Management” section, users are presented with the choice\nto “install default packages.” By opting for this selection, the chosen\nPython installation or virtual environment receives the most up-to-date\ncompatible versions of essential packages such as such as numpy, scipy,\npandas, matplotlib, pyvista, and scikit-learn.\nAfter the installation process concludes, users can view the list of\ninstalled packages by clicking the List Installed Packages button.\nThe Ansys Python Manager subsequently display the installed packages in the\nconsole, providing an overview of the installed dependencies.\nGeneral package management\nnumpy\nscipy\npandas\nmatplotlib\npyvista\nscikit-learn\nList Installed Packages"
+    },
+    {
+        "objectID": "user_guide",
+        "href": "user_guide.html#pyansys-package-management",
+        "title": "User guide > PyAnsys package management",
+        "section": "PyAnsys package management",
+        "text": "In the “PyAnsys Package Management” section, there is flexibility to\nchoose the PyAnsys metapackage and its version to install it within the\nselected Python installation or virtual environment. By selecting the\ndesired PyAnsys metapackage version from the available drop-down menu,\nusers can proceed to install it by clicking the Install button. The\nAnsys Python Manager, then initiate the download and installation\nprocess of the PyAnsys metapackage. Individual PyAnsys packages are also\navailable for download. It is important to note that the installation\nprocess may take a few minutes to complete, depending on the size of the\npackage and the internet bandwidth.\nTo ensure that you have the latest version of the Ansys Python Manager,\nyou can easily update it by clicking on the “Check for Updates”\noption located in the File menu. The Ansys Python Manager, then\nverify if a newer version is available and update accordingly if\nnecessary.\nIn addition, the Ansys Python Manager offers convenient access to the\nPyAnsys documentation through the Help menu. By selecting your\ndesired PyAnsys project from the provided drop-down menu and clicking on\nOpen Website, which redirected to the documentation website\nspecifically to the selected project. This enables you to access\ncomprehensive documentation and resources for your chosen PyAnsys\nproject.\nPyAnsys package management\nPyAnsys documentation\nOpen Website"
+    },
+    {
+        "objectID": "user_guide",
+        "href": "user_guide.html#conclusion",
+        "title": "User guide > Conclusion",
+        "section": "Conclusion",
+        "text": "In this comprehensive user guide, the wide range of features offered by\nthe impressive Ansys Python Manager has been explored. This robust\ntool provides a user-friendly interface for effortless Python\ninstallation, efficient creation and management of virtual environments,\nand seamless installation of PyAnsys packages. Moreover, it offers\nmultiple options for launching your virtual environment in various IDEs\nand development environments. By harnessing the power of the “Ansys\nPython Manager,” you can streamline your Python development workflow.\nSo, what are you waiting for? Download the Ansys Python Manager and\nsupercharge your PyAnsys development today.\nConclusion"
+    },
+    {
+        "objectID": "user_guide",
+        "href": "user_guide.html#references",
+        "title": "User guide > References",
+        "section": "References",
+        "text": "Ansys Python Manager\nReleases\nAnsys Python Manager GitHub\nRepository\nAnsys Python Manager\nDocumentation\nReferences"
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#installation",
+        "title": "Installation",
+        "section": "Installation",
+        "text": "Visit the Releases page and pull\ndown the latest installer. This is a simple application you can use to install\nPython and manage your Python environment.\nInstallation"
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#for-developers",
+        "title": "Installation > For developers",
+        "section": "For developers",
+        "text": "You can be up and running with four lines of code:\nNow you can run it with:\nDetails\nInstalling Pytools installer in developer mode allows you to modify the source\nand enhance it.\nBefore contributing to the project, please refer to the PyAnsys Developer’s\nguide. You will need to follow these steps:\nStart by cloning this repository:\nCreate a fresh-clean Python environment and activate it. Refer to the\nofficial venv documentation if you require further information:\nMake sure you have the latest version of pip:\nInstall the project in editable mode:\nFinally, verify your development installation by running:\nFor developers"
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#style-and-testing",
+        "title": "Installation > Style and testing",
+        "section": "Style and testing",
+        "text": "This project uses pre-commit. Install with:\nThis will now run pre-commit for each commit to ensure you follow project\nstyle guidelines. For example:\nIf you need to run it again on all files and not just staged files, run:\nStyle and testing\npre-commit"
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#local-build",
+        "title": "Installation > Local build",
+        "section": "Local build",
+        "text": "This application can be deployed as a ‘frozen’ application using pyinstaller with:\nThis will generate application files at dist/ansys_python_manager and you\ncan run it locally by executing Ansys Python Manager.exe.\nLocal build\ndist/ansys_python_manager\nAnsys Python Manager.exe"
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#documentation",
+        "title": "Installation > Documentation",
+        "section": "Documentation",
+        "text": "For building documentation, you can either run the usual rules provided in the\nSphinx Makefile, such us:\nDocumentation"
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#distributing",
+        "title": "Installation > Distributing",
+        "section": "Distributing",
+        "text": "This project is vectored to be an open-source project. For the time being, feel\nfree to distribute it internally, but direct users to visit the Releases page\nDistributing"
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#security",
+        "title": "Installation > Security",
+        "section": "Security",
+        "text": "The versions that are still supported for security updates can be found at\nthe Security guidelines\nsite. Information on how to report vulenrabilities is also found.\nSecurity"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#contributing",
+        "title": "Contributing",
+        "section": "Contributing",
+        "text": "Any code contributions are welcome and it is the developer team’s hope that this\nguide facilitates an understanding of the ansys-tools-installer code\nrepository. It is important to note that while the ansys-tools-installer software\npackage is maintained by ANSYS and any submissions are reviewed\nthoroughly before merging, we still seek to foster a community that can\nsupport user questions and develop new features to make this software\na useful tool for all users. As such, we welcome and encourage any\nquestions or submissions to this repository.\nFor contributing to this project, please refer to the\nPyAnsys Developer’s Guide.\nContributing\nansys-tools-installer\nansys-tools-installer"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#installation",
+        "title": "Contributing > Installation",
+        "section": "Installation",
+        "text": "Visit the Releases page and pull\ndown the latest installer. This is a simple application you can use to install\nPython and manage your Python environment.\nInstallation"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#for-developers",
+        "title": "Contributing > For developers",
+        "section": "For developers",
+        "text": "You can be up and running with four lines of code:\nNow you can run it with:\nDetails\nInstalling Pytools installer in developer mode allows you to modify the source\nand enhance it.\nBefore contributing to the project, please refer to the PyAnsys Developer’s\nguide. You will need to follow these steps:\nStart by cloning this repository:\nCreate a fresh-clean Python environment and activate it. Refer to the\nofficial venv documentation if you require further information:\nMake sure you have the latest version of pip:\nInstall the project in editable mode:\nFinally, verify your development installation by running:\nFor developers"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#style-and-testing",
+        "title": "Contributing > Style and testing",
+        "section": "Style and testing",
+        "text": "This project uses pre-commit. Install with:\nThis will now run pre-commit for each commit to ensure you follow project\nstyle guidelines. For example:\nIf you need to run it again on all files and not just staged files, run:\nStyle and testing\npre-commit"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#local-build",
+        "title": "Contributing > Local build",
+        "section": "Local build",
+        "text": "This application can be deployed as a ‘frozen’ application using pyinstaller with:\nThis will generate application files at dist/ansys_python_manager and you\ncan run it locally by executing Ansys Python Manager.exe.\nLocal build\ndist/ansys_python_manager\nAnsys Python Manager.exe"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#documentation",
+        "title": "Contributing > Documentation",
+        "section": "Documentation",
+        "text": "For building documentation, you can either run the usual rules provided in the\nSphinx Makefile, such us:\nDocumentation"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#distributing",
+        "title": "Contributing > Distributing",
+        "section": "Distributing",
+        "text": "This project is vectored to be an open-source project. For the time being, feel\nfree to distribute it internally, but direct users to visit the Releases page\nDistributing"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#security",
+        "title": "Contributing > Security",
+        "section": "Security",
+        "text": "The versions that are still supported for security updates can be found at\nthe Security guidelines\nsite. Information on how to report vulenrabilities is also found.\nSecurity"
+    },
+    {
+        "objectID": "installer",
+        "href": "installer.html#usage-instructions",
+        "title": "Usage instructions",
+        "section": "Usage instructions",
+        "text": "Usage instructions"
+    },
+    {
+        "objectID": "installer",
+        "href": "installer.html#installing-the-ansys-python-manager",
+        "title": "Usage instructions > Installing the Ansys Python Manager",
+        "section": "Installing the Ansys Python Manager",
+        "text": "First step is installing the Ansys Python Manager. In order to do so, follow the next steps.\nDownload the necessary installer from the latest available release.\nThe file should be named Ansys-Python-Manager-Setup-v*.exe.\nExecute the installer.\nSearch for the Ansys Python Manager and run it.\nThe Ansys Python Manager window should appear at this stage.\nPrerequisites:\nOS supported for Ubuntu(20.04 and 22.04).\nUpdate apt-get repository and install the following packages with sudo privileges:\nwget, gnome, libffi-dev, libssl-dev, libsqlite3-dev, libxcb-xinerama0 and build-essential packages with sudo privileges\nInstall zlib package\nTo install the Ansys Python Manager, follow below steps.\nDownload the necessary installer from the latest available release.\nThe file should be named Ansys-Python-Manager_*.zip.\nExecute the below command on the terminal\nSearch for the Ansys Python Manager and run it.\nThe Ansys Python Manager window should appear at this stage.\nTo uninstall the Ansys Python Manager, follow below steps.\nGo to File menu. Click Uninstall option.\nIn the pop up window:\nIf you want to remove all virtual environments which were created by\nthe Ansys Python Manager as part of uninstallation, mark\nDelete virtual environments checkbox\nIf you want to remove all configurations as part of\nuninstallation, mark Delete configurations checkbox\nIf you want to remove all Python installations which were installed by\nthe Ansys Python Manager as part of uninstallation, mark\nDelete Python installations checkbox\nClick Uninstall button.\nPrerequisites:\nOS supported for CentOS9 and RHEL9.\nUpdate yum repository and install the following packages with sudo privileges:\nwget, gnome-terminal, Development Tools, libffi-devel, openssl-devel, rpm-build, sqlite-devel, sqlite-libs, libXinerama-devel, coreutils\nInstall zlib package using wget\nTo install the Ansys Python Manager, follow below steps.\nDownload the necessary installer from the latest available release.\nThe file should be named Ansys-Python-Manager_linux_centos_*.zip.\nExecute the below command on the terminal\nSearch for the Ansys Python Manager and run it.\nThe Ansys Python Manager window should appear at this stage.\nTo uninstall the Ansys Python Manager, follow below steps.\nGo to File menu. Click Uninstall option.\nIn the pop up window:\nIf you want to remove all virtual environments which were created by\nthe Ansys Python Manager as part of uninstallation, mark\nDelete virtual environments checkbox\nIf you want to remove all configurations as part of\nuninstallation, mark Delete configurations checkbox\nIf you want to remove all Python installations which were installed by\nthe Ansys Python Manager as part of uninstallation, mark\nDelete Python installations checkbox\nClick Uninstall button.\nFollow the uninstaller script & provide sudo permission to uninstall the application.\nPrerequisites:\nOS supported for Fedora39.\nUpdate yum repository and install the following packages with sudo privileges:\nwget, gnome-terminal, Development Tools, libffi-devel, openssl-devel, rpm-build, sqlite-devel, sqlite-libs, libXinerama-devel, coreutils\nInstall zlib package using wget\nTo install the Ansys Python Manager, follow below steps.\nDownload the necessary installer from the latest available release.\nThe file should be named Ansys-Python-Manager_linux_fedora_*.zip.\nExecute the below command on the terminal\nSearch for the Ansys Python Manager and run it.\nThe Ansys Python Manager window should appear at this stage.\nTo uninstall the Ansys Python Manager, follow below steps.\nGo to File menu. Click Uninstall option.\nIn the pop up window:\nIf you want to remove all virtual environments which were created by\nthe Ansys Python Manager as part of uninstallation, mark\nDelete virtual environments checkbox\nIf you want to remove all configurations as part of\nuninstallation, mark Delete configurations checkbox\nIf you want to remove all Python installations which were installed by\nthe Ansys Python Manager as part of uninstallation, mark\nDelete Python installations checkbox\nClick Uninstall button.\nFollow the uninstaller script & provide sudo permission to uninstall the application.\nInstalling the Ansys Python Manager\nAnsys Python Manager\nAnsys Python Manager\nAnsys-Python-Manager-Setup-v*.exe\nAnsys Python Manager\nAnsys Python Manager\napt-get\nAnsys Python Manager\nAnsys-Python-Manager_*.zip\nAnsys Python Manager\nAnsys Python Manager\nAnsys Python Manager\nDelete virtual environments\nDelete configurations\nDelete Python installations\nUninstall\nyum\nAnsys Python Manager\nAnsys-Python-Manager_linux_centos_*.zip\nAnsys Python Manager\nAnsys Python Manager\nAnsys Python Manager\nDelete virtual environments\nDelete configurations\nDelete Python installations\nUninstall\nyum\nAnsys Python Manager\nAnsys-Python-Manager_linux_fedora_*.zip\nAnsys Python Manager\nAnsys Python Manager\nAnsys Python Manager\nDelete virtual environments\nDelete configurations\nDelete Python installations\nUninstall"
+    },
+    {
+        "objectID": "installer",
+        "href": "installer.html#installing-python",
+        "title": "Usage instructions > Installing Python",
+        "section": "Installing Python",
+        "text": "Now, instructions on how to install Python from the Ansys Python Manager are provided.\nIn order to do so, just follow the upcoming steps:\nSearch for the Ansys Python Manager and run it.\nGo to the Install Python tab, and select your desired Python install, version and extra packages.\nAnd follow the install process.\nInstalling Python\nAnsys Python Manager\nAnsys Python Manager\nInstall Python"
+    },
+    {
+        "objectID": "installer",
+        "href": "installer.html#configurable-options-for-the-installer",
+        "title": "Usage instructions > Configurable options for the installer",
+        "section": "Configurable options for the installer",
+        "text": "Two Python options for installation are available:\nStandard: this mode installs the standard Python version from python.org\nConda (miniforge): this mode installs the Python version from miniforge.\nThis install is characterized for being a modified conda install in which you have access to the conda\npackage manager through the conda-forge channel.\nRegarding the available Python versions, users can select among the following ones:\nPython 3.10\nPython 3.11\nPython 3.12\nConda python installation:\nBash scripts will be downloaded and executed on a machine directly from the official website.(https://github.com/conda-forge/miniforge?tab=readme-ov-file).\nStandard python installation happens in two ways:\nIf the Debian version is 22.04 and Python 3.11 (recommended by Ansys) is specified, the installer will\nautomatically install the pre-compiled version of Python available within the installer.\nOtherwise, Python will be installed following these steps:\nDownload Python Tarball and Untar:\nThe Python tar file will be downloaded from the Python FTP server (https://www.python.org/ftp/python)\nbased on the version selected from the dropdown menu. Example: For Python version 3.12.0, the download link\nwould be here(https://www.python.org/ftp/python/3.12.0/Python-3.12.0.tar.xz).\nDecompress the downloaded file in the user’s cache directory.\nConfigure the Source:\nFollowing will be executed configure the installation:\nBuild and install Python:\nBuild and install Python using the make and make install commands.\nIn the case of having selected Conda (miniforge), only Python 3.10 is available.\nConfigurable options for the installer\nStandard\nConda (miniforge)\nconda\nconda\nconda-forge\nConda (miniforge)"
+    },
+    {
+        "objectID": "installer",
+        "href": "installer.html#create-python-virtual-environment",
+        "title": "Usage instructions > Create Python virtual environment",
+        "section": "Create Python virtual environment",
+        "text": "Search for the Ansys Python Manager and run it.\nAccess the Create Python Environments tab.\nSelect your desired Python version from the listed options.\nProvide the name of the virtual environment in the Enter virtual environment name text box.\nFinally, Click Create button to create.\nBy default, Ansys Python Manager create virtual environment under,\n{user directory}/.ansys_python_venvs for Windows\n{user directory}/.local/ansys/.ansys_python_venvs for Linux\nTo configure the default virtual environment creation path, go to the File >> Configure section\n(Ctrl + D) and provide your preferred path under the first text box. Then, click the Save button.\nCreate Python virtual environment\nAnsys Python Manager\nCreate Python Environments\nPython version\nEnter virtual environment name\nCreate\n{user directory}/.ansys_python_venvs\n{user directory}/.local/ansys/.ansys_python_venvs\nFile >> Configure\n(Ctrl + D)\nSave"
+    },
+    {
+        "objectID": "installer",
+        "href": "installer.html#managing-python-environments",
+        "title": "Usage instructions > Managing Python environments",
+        "section": "Managing Python environments",
+        "text": "Through the Ansys Python Manager, users can also have access to their different Python\ninstallations. Have a look at how to access it here:\nSearch for the Ansys Python Manager and run it.\nAccess the Manage Python Environments tab.\nSelect your desired Python environment and start one of the listed options.\nBy default, Ansys Python Manager list python environments available under,\n{user directory}/.ansys_python_venvs for Windows\n{user directory}/.local/ansys/.ansys_python_venvs for Linux\nTo manage this directory, go to the File >> Configure section (Ctrl + D) and make the appropriate changes.\nTo add a new default directory path, provide the path in the corresponding text box.\nTo add a new path where virtual environments are searched for, provide the path in the corresponding text box and click the Add button.\nTo remove directory path select the respective path that you want remove from the dropdown and click the Remove button.\nFinally, click the Save button to save the configurations.\nOn the Launching options section, the following options are available:\nLaunch Console: this option starts a console window with the command python pointing\ntowards your selected Python environment.\nLaunch VSCode: this option starts a Visual Studio Code. If Visual Studio Code is\nnot installed, then the Ansys Python Manager provides instructions to install it.\nLaunch JupyterLab: this option starts a JupyterLab session. If JupyterLab is\nnot installed, then the Ansys Python Manager installs it for you.\nLaunch Jupyter Notebook: this option starts a Jupyter Notebook session. If\nJupyter Notebook is not installed, then the Ansys Python Manager installs it for you.\nLaunch Spyder: this option starts a Spyder IDE session. If Spyder is not installed,\nthen the Ansys Python Manager installs it for you.\nOn the Package management section, the following options are available:\nInstall Python default packages: by selecting this option, your selected Python install\nreceives the latest compatible versions for numpy, scipy, pandas, matplotlib, pyvista,\nand  scikit-learn.\nInstall PyAnsys: by selecting this option, your selected Python install has access to\nthe latest, compatible PyAnsys metapackage installation. This metapackage provides you with\naccess to the latest public PyAnsys libraries in their compatible version with the latest\nAnsys products.\nList installed packages: by selecting this option, a list of the installed packages on\nyour selected Python install is provided. This might be useful for identifying potential problems.\nManaging Python environments\nAnsys Python Manager\nAnsys Python Manager\nManage Python Environments\nPython\n{user directory}/.ansys_python_venvs\n{user directory}/.local/ansys/.ansys_python_venvs\nFile >> Configure\n(Ctrl + D)\nAdd\nRemove\nSave\nLaunching options\nLaunch Console\npython\nLaunch VSCode\nVisual Studio Code\nVisual Studio Code\nAnsys Python Manager\nLaunch JupyterLab\nJupyterLab\nJupyterLab\nAnsys Python Manager\nLaunch Jupyter Notebook\nJupyter Notebook\nJupyter Notebook\nAnsys Python Manager\nLaunch Spyder\nAnsys Python Manager\nPackage management\nInstall Python default packages\nnumpy\nscipy\npandas\nmatplotlib\npyvista\nscikit-learn\nInstall PyAnsys\nList installed packages"
+    }
+]
