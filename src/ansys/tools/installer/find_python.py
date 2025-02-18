@@ -170,7 +170,7 @@ def _find_installed_python_linux():
     >>> installed_pythons
     {'/home/user/python/py311/bin/python': ('3.11.3', False),
      '/home/user/python/py311/bin/python3': ('3.11.3', False),
-     '/usr/bin/python3.7': ('3.7.16', True),
+     '/usr/bin/python3.7': ('3.12.0', True),
 
     """
     LOG.debug("Identifying all installed versions of python on Linux")
