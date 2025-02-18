@@ -1,28 +1,32 @@
 # Simple makefile to simplify repetitive build env management tasks under posix
-.PHONY: install tests doc build clean fresh-build
+.PHONY: setup install tests doc build clean fresh-build
 
-install:
+setup:
+	@echo "Installing uv..."
+	pip install -U pip uv
+
+install: setup
 	@echo "Installing..."
-	pip install -e .[freeze]
+	uv pip install -e .[freeze]
 	@echo "Installation complete."
 
-tests:
+tests: setup
 	@echo "Installing test dependencies..."
-	pip install -e .[tests]
+	uv pip install -e .[tests]
 	@echo "Running tests..."
-	pytest
+	uv run pytest
 	@echo "Tests complete."
 
-doc:
+doc: setup
 	@echo "Installing documentation dependencies..."
-	pip install -e .[doc]
+	uv pip install -e .[doc]
 	@echo "Building documentation..."
 	cd doc && make clean && make html && cd ..
 	@echo "Documentation complete."
 
-build:
+build: setup
 	@echo "Freezing using pyinstaller"
-	pyinstaller frozen.spec
+	uv run pyinstaller frozen.spec
 
 clean:
 	@echo "Cleaning up build files..."

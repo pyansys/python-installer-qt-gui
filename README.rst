@@ -50,14 +50,15 @@ You can be up and running with four lines of code:
 
    git clone https://github.com/ansys/python-installer-qt-gui
    cd python-installer-qt-gui
-   pip install pip -U
-   pip install -e .
+   pip install pip uv -U
+   uv venv
+   uv pip install -e .
 
 Now you can run it with:
 
 .. code:: bash
 
-   ansys_python_installer
+   uv run ansys_python_installer
 
 **Details**
 
@@ -79,7 +80,7 @@ guide`_. You will need to follow these steps:
    .. code:: bash
 
       # Create a virtual environment
-      python -m venv .venv
+      python -m uv venv .venv
 
       # Activate it in a POSIX system
       source .venv/bin/activate
@@ -94,19 +95,19 @@ guide`_. You will need to follow these steps:
 
    .. code:: bash
 
-      python -m pip install -U pip
+      python -m pip install -U pip uv
 
 #. Install the project in editable mode:
 
    .. code:: bash
 
-      python -m pip install -e .[tests,doc]
+      python -m uv pip install -e .[tests,doc]
 
 #. Finally, verify your development installation by running:
 
    .. code:: bash
 
-      pytest tests -v
+      uv run pytest tests -v
 
 
 Style and testing
@@ -115,8 +116,8 @@ This project uses `pre-commit <https://pre-commit.com/>`_. Install with:
 
 .. code::
 
-   pip install pre-commit
-   pre-commit install
+   uv pip install pre-commit
+   uv run pre-commit install
 
 This will now run ``pre-commit`` for each commit to ensure you follow project
 style guidelines. For example:
@@ -140,7 +141,7 @@ If you need to run it again on all files and not just staged files, run:
 
 .. code::
 
-   pre-commit run --all-files
+   uv run pre-commit run --all-files
 
 
 Local build
@@ -150,8 +151,8 @@ This application can be deployed as a 'frozen' application using `pyinstaller
 
 .. code::
 
-   pip install -e .[freeze]
-   pyinstaller frozen.spec
+   uv pip install -e .[freeze]
+   uv run pyinstaller frozen.spec
 
 This will generate application files at ``dist/ansys_python_manager`` and you
 can run it locally by executing ``Ansys Python Manager.exe``.
@@ -164,8 +165,8 @@ For building documentation, you can either run the usual rules provided in the
 
 .. code:: bash
 
-    pip install -e .[doc]
-    make -C doc/ html
+    uv pip install -e .[doc]
+    uv run make -C doc/ html
 
     # subsequently open the documentation with (under Linux):
     <your_browser_name> doc/html/index.html

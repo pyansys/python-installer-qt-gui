@@ -84,11 +84,16 @@ jobs:
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
+      - name: Upgrade pip & uv
+        run: |
+          pip install -U pip uv
+
       - name: Install Dependencies
-        run: pip install -e .[freeze]
+        run: |
+          uv sync --extra freeze
 
       - name: Freeze application
-        run: pyinstaller frozen.spec
+        run: uv run pyinstaller frozen.spec
 
       - name: Install NSIS
         run: choco install nsis -y
@@ -192,13 +197,18 @@ jobs:
           mv python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.gz ${RUNNER_WORKSPACE}/python-installer-qt-gui/src/ansys/tools/installer/assets/python-asset/${{ matrix.os }}
           ls -l ${RUNNER_WORKSPACE}/python-installer-qt-gui/src/ansys/tools/installer/assets/python-asset/${{ matrix.os }}
 
+      - name: Upgrade pip & uv
+        run: |
+          pip install -U pip uv
+
       - name: Install Dependencies
-        run: pip install -e .[freeze]
+        run: |
+          uv sync --extra freeze
 
       - name: Freeze application
         env:
           ADD_PYTHON_BINARIES: true
-        run: pyinstaller frozen.spec
+        run: uv run pyinstaller frozen.spec
 
       - name: Setup and Copy Linux files for packaging
         run: |
@@ -334,19 +344,19 @@ jobs:
           mv python-${{ env.PRECOMPILE_PYTHON_VERSION }}.tar.gz ${{ env.GITHUB_WORKSPACE }}/src/ansys/tools/installer/assets/python-asset/${{ env.FOLDER_NAME }}
           ls -l ${{ env.GITHUB_WORKSPACE }}/src/ansys/tools/installer/assets/python-asset/${{ env.FOLDER_NAME }}
 
-      - name: Update pip
-        run: |
-          python3 --version
-          python3 -m pip install pip -U
 
-      - name: Install pip Dependencies
+      - name: Upgrade pip & uv
         run: |
-          python3 -m pip install --ignore-installed -e .[freeze]
+          pip install -U pip uv
+
+      - name: Install Dependencies
+        run: |
+          uv sync --extra freeze
 
       - name: Freeze application
         env:
           ADD_PYTHON_BINARIES: false
-        run: python3 -m PyInstaller frozen.spec
+        run: uv run pyinstaller frozen.spec
 
       - name: Setup and Copy CentOS/RHEL files for packaging
         if: contains(matrix.os, 'centos')

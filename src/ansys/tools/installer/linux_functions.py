@@ -133,7 +133,7 @@ def install_python_linux(filename):
         file = file.replace(".tar.xz", "")
         file = file.lower()
         execute_linux_command(
-            f"cd {untar_dirname};mkdir -p {ansys_linux_path}/{file};make clean;./configure --prefix={ansys_linux_path}/{file};make;make install"
+            f"cd {untar_dirname};mkdir -p {ansys_linux_path}/{file};make clean;./configure --prefix={ansys_linux_path}/{file};make;make install;cp {ansys_linux_path}/{file}/bin/python3 {ansys_linux_path}/{file}/bin/python"
         )
         os.chdir(cwd)
     return 0
@@ -203,7 +203,8 @@ def create_venv_linux(venv_dir, py_path):
     ... )
 
     """
-    execute_linux_command(f"{py_path} -m venv {venv_dir}")
+    execute_linux_command(f"{py_path} -m pip install -U pip uv")
+    execute_linux_command(f"{py_path} -m uv venv {venv_dir}")
 
 
 def create_venv_linux_conda(venv_dir, py_path):
@@ -246,9 +247,13 @@ def run_linux_command(pypath, extra, venv=False):
 
     Examples
     --------
-    >>> run_linux_command("/home/sha/.local/ansys/python-3.8.10/bin/python3", "pip list")
+    >>> run_linux_command("/home/sha/.local/ansys/python-3.8.10/bin/python3", "uv pip list")
 
     """
+
+    # Update package manager before executing commands
+    execute_linux_command(f"{pypath} -m pip install -U pip uv")
+
     prefix = f"{pypath}"
     extra = extra.replace("timeout", "sleep")
     python_name = prefix.split("/")[-1]
@@ -263,7 +268,7 @@ def run_linux_command(pypath, extra, venv=False):
         prefix = f". {pypath}/bin/activate; "
     else:
         prefix = "/".join(prefix.split("/")[:-1]) + "/"
-        extra = extra.replace("pip", f"pip{major_version}")
+        # extra = extra.replace("pip", f"pip{major_version}")
     execute_linux_command(f"cd ~ ; {prefix}{extra}", wait=False)
 
 
@@ -273,13 +278,13 @@ def run_linux_command_conda(pypath, extra, venv=False):
 
     Examples
     --------
-    >>> run_linux_command_conda("/home/sha/.local/ansys/python-3.8.10/bin/python3", "pip list")
+    >>> run_linux_command_conda("/home/sha/.local/ansys/python-3.8.10/bin/python3", "uv pip list")
 
     """
     venvParam = ""
     extra = extra.replace("timeout", "sleep")
     extra = extra.replace("conda install --yes", "mamba install --yes")
-    # extra = extra.replace("conda update conda --yes", "python -m pip install -U pip")
+    # extra = extra.replace("conda update conda --yes", "python -m pip install -U pip uv")
     extra = extra.replace(
         "conda update conda --yes", "mamba update -n base mamba --yes"
     )
@@ -302,7 +307,7 @@ def run_linux_command_conda(pypath, extra, venv=False):
                     break
         venvParam = f"; . {miniforge_path}; . {miniforge_path.replace('conda.sh', 'mamba.sh')} ;mamba activate {pypath}"
     else:
-        extra = extra.replace(" pip", f" {pypath}/bin/pip")
+        extra = extra.replace("uv pip", f" {pypath}/bin/pip")
     execute_linux_command(f"cd ~ {venvParam} ; {conda_path}{extra} ", wait=False)
 
 

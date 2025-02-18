@@ -357,16 +357,16 @@ class InstalledTab(QtWidgets.QWidget):
     def launch_spyder(self):
         """Launch spyder IDE."""
         # handle errors
-        error_msg = "(pip install spyder && spyder && exit 0) || echo Failed to launch. Try reinstalling spyder with pip install spyder --force-reinstall"
+        error_msg = "(uv pip install spyder && spyder && exit 0) || echo Failed to launch. Try reinstalling spyder with pip install spyder --force-reinstall"
         self._update_pck_mnger()
         self.launch_cmd(
-            f'pip list | {"grep" if is_linux_os() else "findstr"} "spyder" && spyder && exit 0 || {error_msg}'
+            f'uv pip list | {"grep" if is_linux_os() else "findstr"} "spyder" && spyder && exit 0 || {error_msg}'
         )
 
     def launch_jupyterlab(self):
         """Launch Jupyterlab."""
         # handle errors
-        error_msg = "pip install jupyterlab && python -m jupyter lab || echo Failed to launch. Try reinstalling jupyterlab with pip install jupyterlab --force-reinstall"
+        error_msg = "uv pip install jupyterlab && python -m jupyter lab || echo Failed to launch. Try reinstalling jupyterlab with pip install jupyterlab --force-reinstall"
         self._update_pck_mnger()
         self.launch_cmd(f"python -m jupyter lab || {error_msg}")
 
@@ -377,13 +377,13 @@ class InstalledTab(QtWidgets.QWidget):
     def launch_jupyter_notebook(self):
         """Launch Jupyter Notebook."""
         # handle errors
-        error_msg = "pip install jupyter && python -m jupyter notebook || echo Failed to launch. Try reinstalling jupyter with pip install jupyter --force-reinstall"
+        error_msg = "uv pip install jupyter && python -m jupyter notebook || echo Failed to launch. Try reinstalling jupyter with pip install jupyter --force-reinstall"
         self._update_pck_mnger()
         self.launch_cmd(f"python -m jupyter notebook || {error_msg}")
 
     def install_defaults(self):
         """Install Python default packages."""
-        cmd = "pip install numpy pandas scipy scikit-learn matplotlib pyvista[all] && timeout 3 && exit || echo Failed to install default Python packages. Try reinstalling it with pip install numpy pandas scipy scikit-learn matplotlib pyvista[all] --force-reinstall"
+        cmd = "uv pip install numpy pandas scipy scikit-learn matplotlib pyvista[all] && timeout 3 && exit || echo Failed to install default Python packages. Try reinstalling it with pip install numpy pandas scipy scikit-learn matplotlib pyvista[all] --force-reinstall"
         self._update_pck_mnger()
         self.launch_cmd(cmd)
 
@@ -396,7 +396,7 @@ class InstalledTab(QtWidgets.QWidget):
             if chosen_ver
             else f"{PYANSYS_LIBS[chosen_pkg]}"
         )
-        cmd = f"pip install {pck_ver} && timeout 3 && exit || echo Failed to install this PyAnsys Library. Try reinstalling it with pip install {pck_ver} --force-reinstall"
+        cmd = f"uv pip install {pck_ver} && timeout 3 && exit || echo Failed to install this PyAnsys Library. Try reinstalling it with uv pip install {pck_ver} --force-reinstall"
         self._update_pck_mnger()
         self.launch_cmd(cmd, always_use_pip=True)
 
@@ -417,7 +417,7 @@ class InstalledTab(QtWidgets.QWidget):
 
     def list_packages(self):
         """List installed Python packages."""
-        self.launch_cmd("pip list")
+        self.launch_cmd("uv pip list")
 
     def _update_pck_mnger(self):
         """Update package manager if needed.
@@ -428,7 +428,7 @@ class InstalledTab(QtWidgets.QWidget):
         """
         if self.is_chk_box_active():
             if "Python" in self.table.active_version:
-                cmd = "python -m pip install -U pip && exit"
+                cmd = "python -m pip install -U pip uv && exit"
             else:  # Otherwise, conda
                 cmd = "conda update conda --yes && exit"
             self.launch_cmd(cmd, minimized_window=True)
@@ -581,6 +581,8 @@ class InstalledTab(QtWidgets.QWidget):
             new_path = f"{py_path};{scripts_path};{myenv}"
 
             if extra:
+                extra = extra.replace("uv pip install", "uv pip install --system")
+                extra = extra.replace("uv pip list", "uv pip list --system")
                 cmd = f"&& {extra}"
             else:
                 cmd = f"&& echo Python set to {py_path}"
@@ -588,6 +590,12 @@ class InstalledTab(QtWidgets.QWidget):
             if is_linux_os():
                 run_linux_command(py_path, extra)
             else:
+                # Update the package managers
+                subprocess.call(
+                    f'start /w /min cmd /K "set PATH={new_path} && python -m pip install --upgrade pip uv && exit"',
+                    shell=True,
+                )
+
                 subprocess.call(
                     f'start {min_win} cmd /K "set PATH={new_path} && cd %userprofile% {cmd}"',
                     shell=True,
@@ -610,7 +618,7 @@ class InstalledTab(QtWidgets.QWidget):
             if extra:
                 # Replace the pip install command for conda
                 if not always_use_pip:
-                    extra = extra.replace("pip", "conda")
+                    extra = extra.replace("uv pip", "conda")
                     extra = extra.replace("conda install", "conda install --yes")
                 cmd = f"&& {extra}"
             else:
@@ -627,7 +635,7 @@ class InstalledTab(QtWidgets.QWidget):
             if extra:
                 # Replace the pip install command for conda
                 if not always_use_pip:
-                    extra = extra.replace("pip", "conda")
+                    extra = extra.replace("uv pip", "conda")
                     extra = extra.replace("conda install", "conda install --yes")
                 cmd = f"&& {extra}"
             else:

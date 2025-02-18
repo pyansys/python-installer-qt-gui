@@ -6,7 +6,7 @@ build-backend = "flit_core.buildapi"
 name = "ansys-tools-installer"
 description = "Python QT app or CLI for installing Python and PyAnsys."
 readme = "README.rst"
-requires-python = ">=3.9,<4"
+requires-python = ">=3.10,<4"
 license = { file = "LICENSE" }
 authors = [{ name = "Ansys, Inc.", email = "pyansys.core@ansys.com" }]
 maintainers = [{ name = "Ansys, Inc.", email = "pyansys.core@ansys.com" }]
