@@ -1,0 +1,734 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>User guide &#8212; Ansys Python Manager</title>
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/ansys_sphinx_theme.css?v=7b6abe20" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+ 
+<link href="_static/css/breadcrumbs.css" rel="stylesheet" />
+
+    <script src="_static/documentation_options.js?v=88a33dcd"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/table.js?v=b64f5182"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://installer.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Contributing" href="contributing.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <link rel="canonical" href="https://installer.docs.pyansys.com/version/stable/user_guide.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container"><!-- Debugging: html_theme_options =  -->
+
+<!-- If there is no MiliSearch enabled, use the PyData search -->
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+   
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/pyansys-logo-black-cropped.png" class="logo__image only-light" alt="Ansys Python Manager - Home"/>
+    <script>document.write(`<img src="_static/pyansys-logo-black-cropped.png" class="logo__image only-dark" alt="Ansys Python Manager - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="installer.html">
+                        Usage instructions
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="contributing.html">
+                        Contributing
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        User guide
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/python-installer-qt-gui" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="installer.html">
+                        Usage instructions
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="contributing.html">
+                        Contributing
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        User guide
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/python-installer-qt-gui" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+         
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="https://docs.pyansys.com/" class="nav-link">PyAnsys</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a
+        href="index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page">User guide</li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="user-guide">
+<h1>User guide<a class="headerlink" href="#user-guide" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Python has emerged as a leading language for a diverse range of
+applications, encompassing data science, machine learning, web
+development, and workflow automation. PyAnsys is a set of Python package
+that aligns with this trend, offering a Pythonic interface to Ansys
+Products. It serves as a powerful tool for automating engineering
+workflows, conducting parametric studies, and post-processing simulation
+results, among other applications. However, configuring Python
+environments and handling dependencies can occasionally prove to be
+daunting. This is where Ansys Python Manager comes to play.</p>
+</section>
+<section id="what-is-the-ansys-python-manager">
+<h2>What is the Ansys Python Manager?<a class="headerlink" href="#what-is-the-ansys-python-manager" title="Link to this heading">#</a></h2>
+<p>The Ansys Python Manager is a collaborative open source Python QT
+app developed by various groups within Ansys. This efficient
+tool has garnered significant popularity and received positive feedback
+for its capability to streamline Python usage, simplify virtual
+environment management, and facilitate PyAnsys packages administration.</p>
+<p>In this user guide, various features offered by the Ansys Python Manager are explored,
+such as Python installation, creation and management of virtual environments,
+and the available ways to initiate Integrated Development Environments (IDEs)
+&amp; Development environments. This user guide further explore the package management capabilities
+of the Ansys Python Manager, including the installation of PyAnsys packages and the
+management of dependencies. Finally, this user guide offers information on accessing
+PyAnsys documentation through the Ansys Python Manager, as well as the options available
+for updating the app.</p>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<p>To install the Ansys Python Manager, you can visit its
+<a class="reference external" href="https://github.com/ansys/python-installer-qt-gui/releases">repository</a>
+and download the installer from the latest release
+(<code class="docutils literal notranslate"><span class="pre">Ansys-Python-Manager-Setup-v*.exe</span></code>) from the Assets section. After
+downloading the installer, simply run it and follow the installation
+instructions to install the Ansys Python Manager on your machine. Once
+the installation is complete, you can easily launch the Ansys Python
+Manager from the Start Menu.</p>
+</section>
+<section id="install-python-tab">
+<h2>Install python tab<a class="headerlink" href="#install-python-tab" title="Link to this heading">#</a></h2>
+<p>The Ansys Python Manager offers a user-friendly interface for Python
+installation. You can easily select the desired Python version from the
+provided drop-down menu. The manager provides two options: standard
+Python and conda-forge python. The standard Python option is the
+official Python distribution, while the conda-forge Python option uses the
+community-driven distribution used with products like Anaconda.</p>
+<p>After selecting the desired Python version and clicking the Install
+button in the Ansys Python Manager, then the app proceeds to
+download and install the chosen Python distribution. The installation
+process may take a few minutes to complete. Once the installation is
+finished, the Ansys Python Manager subsequently displays the installed Python
+version and its corresponding installation path in the next tab labeled
+“Create Virtual Environments.”</p>
+<a class="reference internal image-reference" href="_images/ansys_python_manager.PNG"><img alt="Screenshot of Ansys Python Manager" class="align-center" src="_images/ansys_python_manager.PNG" style="width: 560px; height: 650px;" /></a>
+</section>
+<section id="create-virtual-environments-tab">
+<h2>Create virtual environments tab<a class="headerlink" href="#create-virtual-environments-tab" title="Link to this heading">#</a></h2>
+<p>The “Create Virtual Environments” tab in the Ansys Python Manager
+provides the interface for creating and managing virtual environments.
+You can easily create a virtual environment by selecting the desired
+Python version and providing a name for the environment. Simply click
+the Create button to initiate the virtual environment creation process.
+The Ansys Python Manager creates the virtual environment and display
+its corresponding path in the subsequent tab labeled “Manage Virtual
+Environments.”</p>
+<a class="reference internal image-reference" href="_images/create_venv_tab.PNG"><img alt="Screenshot of Create Virtual Environments Tab" class="align-center" src="_images/create_venv_tab.PNG" style="width: 560px; height: 650px;" /></a>
+</section>
+<section id="manage-virtual-environments-tab">
+<h2>Manage virtual environments tab<a class="headerlink" href="#manage-virtual-environments-tab" title="Link to this heading">#</a></h2>
+<p>The “Manage Virtual Environments” tab in the Ansys Python Manager allows
+you to effectively manage the virtual environments you have created. You
+have options available, such as deleting a virtual environment, Launch
+Options, General Package Management, and PyAnsys Package Management for
+the selected virtual environment. You can also delete a virtual
+environment by selecting it from the available list under “Available
+virtual environments” and clicking on the “Delete virtual environment”
+option available with context menu.</p>
+<a class="reference internal image-reference" href="_images/manage_venv_tab.PNG"><img alt="Screenshot of Manage Virtual Environments Tab" class="align-center" src="_images/manage_venv_tab.PNG" style="width: 560px; height: 650px;" /></a>
+<p><code class="docutils literal notranslate"><span class="pre">Launch</span> <span class="pre">options</span></code> provides the option to launch the selected virtual
+environment with the available IDEs and development environments. For
+example, you can launch the Spyder IDE by selecting the virtual
+environment from the available list and clicking on the
+<code class="docutils literal notranslate"><span class="pre">Launch</span> <span class="pre">Spyder</span></code> option. Likewise, you can launch the Jupyter Notebook,
+Jupyter Lab and console.</p>
+<img alt="Screenshot of Launch Options" class="align-center" src="_images/launch_options.PNG" />
+<p><strong>Tip:</strong> By using <code class="docutils literal notranslate"><span class="pre">Launch</span> <span class="pre">console</span></code> option, you can launch the
+virtual environment in the command prompt and subsequently navigate
+to the development folder and launch the VS Code IDEs using command
+line option “<code class="docutils literal notranslate"><span class="pre">code</span> <span class="pre">.</span></code>” And set the interpreter to the virtual
+environment.</p>
+</section>
+<section id="general-package-management">
+<h2>General package management<a class="headerlink" href="#general-package-management" title="Link to this heading">#</a></h2>
+<p>In the “General Package Management” section, users are presented with the choice
+to “install default packages.” By opting for this selection, the chosen
+Python installation or virtual environment receives the most up-to-date
+compatible versions of essential packages such as such as <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, and <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>.
+After the installation process concludes, users can view the list of
+installed packages by clicking the <code class="docutils literal notranslate"><span class="pre">List</span> <span class="pre">Installed</span> <span class="pre">Packages</span></code> button.
+The Ansys Python Manager subsequently display the installed packages in the
+console, providing an overview of the installed dependencies.</p>
+<img alt="Screenshot of General Package Management" class="align-center" src="_images/general_pkg_management.PNG" />
+</section>
+<section id="pyansys-package-management">
+<h2>PyAnsys package management<a class="headerlink" href="#pyansys-package-management" title="Link to this heading">#</a></h2>
+<p>In the “PyAnsys Package Management” section, there is flexibility to
+choose the PyAnsys metapackage and its version to install it within the
+selected Python installation or virtual environment. By selecting the
+desired PyAnsys metapackage version from the available drop-down menu,
+users can proceed to install it by clicking the Install button. The
+Ansys Python Manager, then initiate the download and installation
+process of the PyAnsys metapackage. Individual PyAnsys packages are also
+available for download. It is important to note that the installation
+process may take a few minutes to complete, depending on the size of the
+package and the internet bandwidth.</p>
+<img alt="Screenshot of PyAnsys Package Management" class="align-center" src="_images/pyansys_pkg_management.PNG" />
+<p>To ensure that you have the latest version of the Ansys Python Manager,
+you can easily update it by clicking on the “Check for Updates”
+option located in the File menu. The Ansys Python Manager, then
+verify if a newer version is available and update accordingly if
+necessary.</p>
+<p>In addition, the Ansys Python Manager offers convenient access to the
+<code class="docutils literal notranslate"><span class="pre">PyAnsys</span> <span class="pre">documentation</span></code> through the Help menu. By selecting your
+desired PyAnsys project from the provided drop-down menu and clicking on
+<code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Website</span></code>, which redirected to the documentation website
+specifically to the selected project. This enables you to access
+comprehensive documentation and resources for your chosen PyAnsys
+project.</p>
+<a class="reference internal image-reference" href="_images/pyansys_documentation.PNG"><img alt="Screenshot of PyAnsys Documentation Option" class="align-center" src="_images/pyansys_documentation.PNG" style="width: 532px; height: 367px;" /></a>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>In this comprehensive user guide, the wide range of features offered by
+the impressive Ansys Python Manager has been explored. This robust
+tool provides a user-friendly interface for effortless Python
+installation, efficient creation and management of virtual environments,
+and seamless installation of PyAnsys packages. Moreover, it offers
+multiple options for launching your virtual environment in various IDEs
+and development environments. By harnessing the power of the “Ansys
+Python Manager,” you can streamline your Python development workflow.
+So, what are you waiting for? Download the Ansys Python Manager and
+supercharge your PyAnsys development today.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ansys/python-installer-qt-gui/releases">Ansys Python Manager
+Releases</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ansys/python-installer-qt-gui">Ansys Python Manager GitHub
+Repository</a></p></li>
+<li><p><a class="reference external" href="https://installer.docs.pyansys.com/version/stable/">Ansys Python Manager
+Documentation</a></p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-ansys-python-manager">What is the Ansys Python Manager?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-python-tab">Install python tab</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-virtual-environments-tab">Create virtual environments tab</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manage-virtual-environments-tab">Manage virtual environments tab</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-package-management">General package management</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyansys-package-management">PyAnsys package management</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="_sources/user_guide.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2024 ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  0.13.3. <br />Last updated on
+  <span id="date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var lastModifiedDate = new Date(document.lastModified);
+  var date = lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("date").innerHTML = date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,936 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Usage instructions &#8212; Ansys Python Manager</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/ansys_sphinx_theme.css?v=0909a4fa" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+
+  <!-- Include desired assets -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+
+  
+    <link href="_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="_static/documentation_options.js?v=70879919"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'installer';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://installer.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.3';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="prev" title="Installation" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.3.11
+" />
+  <link rel="canonical" href="https://installer.docs.pyansys.com/version/stable/installer.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="Ansys Python Manager - Home"/>
+    <img src="_static/pyansys_logo_transparent_white.png" class="logo__image only-dark pst-js-only" alt="Ansys Python Manager - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Usage instructions
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="user_guide.html">
+    User guide
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div>
+        </div>
+      
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/python-installer-qt-gui" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Usage instructions
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="user_guide.html">
+    User guide
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/python-installer-qt-gui" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+         
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="https://docs.pyansys.com/" class="nav-link">PyAnsys</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a
+        href="index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Usage instructions</span></li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="usage-instructions">
+<h1>Usage instructions<a class="headerlink" href="#usage-instructions" title="Link to this heading">#</a></h1>
+<section id="installing-the-ansys-python-manager">
+<h2>Installing the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code><a class="headerlink" href="#installing-the-ansys-python-manager" title="Link to this heading">#</a></h2>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+Windows</label><div class="sd-tab-content docutils">
+<p>First step is installing the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code>. In order to do so, follow the next steps.</p>
+<ol class="arabic simple">
+<li><p>Download the necessary installer from the <a class="reference external" href="https://github.com/ansys/python-installer-qt-gui/releases/latest">latest available release</a>.
+The file should be named <code class="docutils literal notranslate"><span class="pre">Ansys-Python-Manager-Setup-v*.exe</span></code>.</p></li>
+<li><p>Execute the installer.</p></li>
+<li><p>Search for the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code> and run it.</p></li>
+</ol>
+<p>The <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code> window should appear at this stage.</p>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+Linux</label><div class="sd-tab-content docutils">
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+Ubuntu</label><div class="sd-tab-content docutils">
+<p>Prerequisites:</p>
+<ol class="arabic">
+<li><p><strong>OS</strong> supported for <strong>Ubuntu(20.04 and 22.04)</strong>.</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">apt-get</span></code> repository and install the following packages with <strong>sudo</strong> privileges:
+<strong>wget, gnome, libffi-dev, libssl-dev, libsqlite3-dev, libxcb-xinerama0 and build-essential</strong> packages with <strong>sudo</strong> privileges</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span>-y
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>wget<span class="w"> </span>gnome<span class="w"> </span>libffi-dev<span class="w"> </span>libssl-dev<span class="w"> </span>libsqlite3-dev<span class="w"> </span>libxcb-xinerama0<span class="w"> </span>build-essential<span class="w"> </span>-y
+</pre></div>
+</div>
+</li>
+<li><p>Install <strong>zlib</strong> package</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://zlib.net/current/zlib.tar.gz
+tar<span class="w"> </span>xvzf<span class="w"> </span>zlib.tar.gz
+<span class="nb">cd</span><span class="w"> </span>zlib-*
+make<span class="w"> </span>clean
+./configure
+make
+sudo<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</li>
+</ol>
+<p>To install the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code>, follow below steps.</p>
+<ol class="arabic">
+<li><p>Download the necessary installer from the <a class="reference external" href="https://github.com/ansys/python-installer-qt-gui/releases/latest">latest available release</a>.
+The file should be named <code class="docutils literal notranslate"><span class="pre">Ansys-Python-Manager_*.zip</span></code>.</p></li>
+<li><p>Execute the below command on the terminal</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>unzip<span class="w"> </span>Ansys-Python-Manager_*.zip
+./installer.sh
+</pre></div>
+</div>
+</li>
+<li><p>Search for the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code> and run it.</p></li>
+</ol>
+<p>The <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code> window should appear at this stage.</p>
+<p>To uninstall the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code>, follow below steps.</p>
+<ol class="arabic simple">
+<li><p>Go to File menu. Click Uninstall option.</p></li>
+<li><p>In the pop up window:</p>
+<ul class="simple">
+<li><p>If you want to remove all virtual environments which were created by
+the Ansys Python Manager as part of uninstallation, mark
+<code class="docutils literal notranslate"><span class="pre">Delete</span> <span class="pre">virtual</span> <span class="pre">environments</span></code> checkbox</p></li>
+<li><p>If you want to remove all configurations as part of
+uninstallation, mark <code class="docutils literal notranslate"><span class="pre">Delete</span> <span class="pre">configurations</span></code> checkbox</p></li>
+<li><p>If you want to remove all Python installations which were installed by
+the Ansys Python Manager as part of uninstallation, mark
+<code class="docutils literal notranslate"><span class="pre">Delete</span> <span class="pre">Python</span> <span class="pre">installations</span></code> checkbox</p></li>
+</ul>
+</li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Uninstall</span></code> button.</p></li>
+</ol>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+CentOS9, RHEL9</label><div class="sd-tab-content docutils">
+<p>Prerequisites:</p>
+<ol class="arabic">
+<li><p><strong>OS</strong> supported for <strong>CentOS9</strong> and <strong>RHEL9</strong>.</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">yum</span></code> repository and install the following packages with <strong>sudo</strong> privileges:
+<strong>wget, gnome-terminal, Development Tools, libffi-devel, openssl-devel, rpm-build, sqlite-devel, sqlite-libs, libXinerama-devel, coreutils</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>yum<span class="w"> </span>update<span class="w"> </span>-y<span class="p">;</span>
+sudo<span class="w"> </span>yum<span class="w"> </span>groupinstall<span class="w"> </span><span class="s1">&#39;Development Tools&#39;</span><span class="w"> </span>-y<span class="p">;</span>
+sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>wget<span class="w"> </span>gnome-terminal<span class="w"> </span>libffi-devel<span class="w"> </span>openssl-devel<span class="w"> </span>rpm-build<span class="w"> </span>sqlite-devel<span class="w"> </span>sqlite-libs<span class="w"> </span>libXinerama-devel<span class="w"> </span>coreutils<span class="w"> </span>-y<span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Install <strong>zlib</strong> package using <strong>wget</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>wget<span class="w"> </span>-y
+wget<span class="w"> </span>https://zlib.net/current/zlib.tar.gz
+tar<span class="w"> </span>xvzf<span class="w"> </span>zlib.tar.gz
+<span class="nb">cd</span><span class="w"> </span>zlib-*
+make<span class="w"> </span>clean
+./configure
+make
+sudo<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</li>
+</ol>
+<p>To install the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code>, follow below steps.</p>
+<ol class="arabic">
+<li><p>Download the necessary installer from the <a class="reference external" href="https://github.com/ansys/python-installer-qt-gui/releases/latest">latest available release</a>.
+The file should be named <code class="docutils literal notranslate"><span class="pre">Ansys-Python-Manager_linux_centos_*.zip</span></code>.</p></li>
+<li><p>Execute the below command on the terminal</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>unzip<span class="w"> </span>Ansys-Python-Manager_linux_centos_*.zip
+./installer_CentOS.sh
+</pre></div>
+</div>
+</li>
+<li><p>Search for the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code> and run it.</p></li>
+</ol>
+<p>The <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code> window should appear at this stage.</p>
+<p>To uninstall the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code>, follow below steps.</p>
+<ol class="arabic simple">
+<li><p>Go to File menu. Click Uninstall option.</p></li>
+<li><p>In the pop up window:</p>
+<ul class="simple">
+<li><p>If you want to remove all virtual environments which were created by
+the Ansys Python Manager as part of uninstallation, mark
+<code class="docutils literal notranslate"><span class="pre">Delete</span> <span class="pre">virtual</span> <span class="pre">environments</span></code> checkbox</p></li>
+<li><p>If you want to remove all configurations as part of
+uninstallation, mark <code class="docutils literal notranslate"><span class="pre">Delete</span> <span class="pre">configurations</span></code> checkbox</p></li>
+<li><p>If you want to remove all Python installations which were installed by
+the Ansys Python Manager as part of uninstallation, mark
+<code class="docutils literal notranslate"><span class="pre">Delete</span> <span class="pre">Python</span> <span class="pre">installations</span></code> checkbox</p></li>
+</ul>
+</li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Uninstall</span></code> button.</p></li>
+<li><p>Follow the uninstaller script &amp; provide sudo permission to uninstall the application.</p></li>
+</ol>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+Fedora39</label><div class="sd-tab-content docutils">
+<p>Prerequisites:</p>
+<ol class="arabic">
+<li><p><strong>OS</strong> supported for <strong>Fedora39</strong>.</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">yum</span></code> repository and install the following packages with <strong>sudo</strong> privileges:
+<strong>wget, gnome-terminal, Development Tools, libffi-devel, openssl-devel, rpm-build, sqlite-devel, sqlite-libs, libXinerama-devel, coreutils</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>yum<span class="w"> </span>update<span class="w"> </span>-y<span class="p">;</span>
+sudo<span class="w"> </span>yum<span class="w"> </span>groupinstall<span class="w"> </span><span class="s1">&#39;Development Tools&#39;</span><span class="w"> </span>-y<span class="p">;</span>
+sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>wget<span class="w"> </span>gnome-terminal<span class="w"> </span>libffi-devel<span class="w"> </span>openssl-devel<span class="w"> </span>rpm-build<span class="w"> </span>sqlite-devel<span class="w"> </span>sqlite-libs<span class="w"> </span>libXinerama-devel<span class="w"> </span>coreutils<span class="w"> </span>-y<span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Install <strong>zlib</strong> package using <strong>wget</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>wget<span class="w"> </span>-y
+wget<span class="w"> </span>https://zlib.net/current/zlib.tar.gz
+tar<span class="w"> </span>xvzf<span class="w"> </span>zlib.tar.gz
+<span class="nb">cd</span><span class="w"> </span>zlib-*
+make<span class="w"> </span>clean
+./configure
+make
+sudo<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</li>
+</ol>
+<p>To install the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code>, follow below steps.</p>
+<ol class="arabic">
+<li><p>Download the necessary installer from the <a class="reference external" href="https://github.com/ansys/python-installer-qt-gui/releases/latest">latest available release</a>.
+The file should be named <code class="docutils literal notranslate"><span class="pre">Ansys-Python-Manager_linux_fedora_*.zip</span></code>.</p></li>
+<li><p>Execute the below command on the terminal</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>unzip<span class="w"> </span>Ansys-Python-Manager_linux_fedora_*.zip
+./installer_Fedora.sh
+</pre></div>
+</div>
+</li>
+<li><p>Search for the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code> and run it.</p></li>
+</ol>
+<p>The <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code> window should appear at this stage.</p>
+<p>To uninstall the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code>, follow below steps.</p>
+<ol class="arabic simple">
+<li><p>Go to File menu. Click Uninstall option.</p></li>
+<li><p>In the pop up window:</p>
+<ul class="simple">
+<li><p>If you want to remove all virtual environments which were created by
+the Ansys Python Manager as part of uninstallation, mark
+<code class="docutils literal notranslate"><span class="pre">Delete</span> <span class="pre">virtual</span> <span class="pre">environments</span></code> checkbox</p></li>
+<li><p>If you want to remove all configurations as part of
+uninstallation, mark <code class="docutils literal notranslate"><span class="pre">Delete</span> <span class="pre">configurations</span></code> checkbox</p></li>
+<li><p>If you want to remove all Python installations which were installed by
+the Ansys Python Manager as part of uninstallation, mark
+<code class="docutils literal notranslate"><span class="pre">Delete</span> <span class="pre">Python</span> <span class="pre">installations</span></code> checkbox</p></li>
+</ul>
+</li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Uninstall</span></code> button.</p></li>
+<li><p>Follow the uninstaller script &amp; provide sudo permission to uninstall the application.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="installing-python">
+<h2>Installing Python<a class="headerlink" href="#installing-python" title="Link to this heading">#</a></h2>
+<p>Now, instructions on how to install Python from the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code> are provided.</p>
+<p>In order to do so, just follow the upcoming steps:</p>
+<ol class="arabic simple">
+<li><p>Search for the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code> and run it.</p></li>
+<li><p>Go to the <code class="docutils literal notranslate"><span class="pre">Install</span> <span class="pre">Python</span></code> tab, and select your desired Python install, version and extra packages.</p></li>
+<li><p>And follow the install process.</p></li>
+</ol>
+<section id="configurable-options-for-the-installer">
+<h3>Configurable options for the installer<a class="headerlink" href="#configurable-options-for-the-installer" title="Link to this heading">#</a></h3>
+<p>Two Python options for installation are available:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Standard</span></code>: this mode installs the standard Python version from <a class="reference external" href="https://www.python.org/">python.org</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Conda</span> <span class="pre">(miniforge)</span></code>: this mode installs the Python version from <a class="reference external" href="https://github.com/conda-forge/miniforge">miniforge</a>.
+This install is characterized for being a modified <code class="docutils literal notranslate"><span class="pre">conda</span></code> install in which you have access to the <code class="docutils literal notranslate"><span class="pre">conda</span></code>
+package manager through the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> channel.</p></li>
+</ul>
+<p>Regarding the available Python versions, users can select among the following ones:</p>
+<ul class="simple">
+<li><p>Python 3.10</p></li>
+<li><p>Python 3.11</p></li>
+<li><p>Python 3.12</p></li>
+</ul>
+<details class="summary-linux-python-installation">
+<summary>Linux : Python installation</summary><ol class="arabic simple">
+<li><p>Conda python installation:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Bash scripts will be downloaded and executed on a machine directly from the official website.(<a class="github reference external" href="https://github.com/conda-forge/miniforge?tab=readme-ov-file">conda-forge/miniforge</a>).</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Standard python installation happens in two ways:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>If the Debian version is 22.04 and Python 3.11 (recommended by Ansys) is specified, the installer will
+automatically install the pre-compiled version of Python available within the installer.</p></li>
+<li><p>Otherwise, Python will be installed following these steps:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Download Python Tarball and Untar:</p></li>
+</ol>
+<blockquote>
+<div><ol class="lowerroman simple">
+<li><p>The Python tar file will be downloaded from the Python FTP server (<a class="reference external" href="https://www.python.org/ftp/python">https://www.python.org/ftp/python</a>)
+based on the version selected from the dropdown menu. Example: For Python version 3.12.0, the download link
+would be here(<a class="reference external" href="https://www.python.org/ftp/python/3.12.0/Python-3.12.0.tar.xz">https://www.python.org/ftp/python/3.12.0/Python-3.12.0.tar.xz</a>).</p></li>
+<li><p>Decompress the downloaded file in the user’s cache directory.</p></li>
+</ol>
+</div></blockquote>
+<ul>
+<li><p>Configure the Source:</p>
+<ol class="lowerroman simple">
+<li><p>Following will be executed configure the installation:</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./configure<span class="w"> </span>--prefix<span class="o">=</span>~/.local/ansys/<span class="o">{</span>python_folder_name<span class="o">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Build and install Python:</p>
+<ol class="lowerroman simple">
+<li><p>Build and install Python using the make and make install commands.</p></li>
+</ol>
+</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</details><div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In the case of having selected <code class="docutils literal notranslate"><span class="pre">Conda</span> <span class="pre">(miniforge)</span></code>, only Python 3.10 is available.</p>
+</div>
+</section>
+</section>
+<section id="create-python-virtual-environment">
+<h2>Create Python virtual environment<a class="headerlink" href="#create-python-virtual-environment" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Search for the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code> and run it.</p></li>
+<li><p>Access the <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">Python</span> <span class="pre">Environments</span></code> tab.</p></li>
+<li><p>Select your desired <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">version</span></code> from the listed options.</p></li>
+<li><p>Provide the name of the virtual environment in the <code class="docutils literal notranslate"><span class="pre">Enter</span> <span class="pre">virtual</span> <span class="pre">environment</span> <span class="pre">name</span></code> text box.</p></li>
+<li><p>Finally, Click <code class="docutils literal notranslate"><span class="pre">Create</span></code> button to create.</p></li>
+</ol>
+<p>By default, Ansys Python Manager create virtual environment under,</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">{user</span> <span class="pre">directory}/.ansys_python_venvs</span></code> for Windows</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{user</span> <span class="pre">directory}/.local/ansys/.ansys_python_venvs</span></code> for Linux</p></li>
+</ul>
+<p>To configure the default virtual environment creation path, go to the <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">&gt;&gt;</span> <span class="pre">Configure</span></code> section
+<code class="docutils literal notranslate"><span class="pre">(Ctrl</span> <span class="pre">+</span> <span class="pre">D)</span></code> and provide your preferred path under the first text box. Then, click the <code class="docutils literal notranslate"><span class="pre">Save</span></code> button.</p>
+</section>
+<section id="managing-python-environments">
+<h2>Managing Python environments<a class="headerlink" href="#managing-python-environments" title="Link to this heading">#</a></h2>
+<p>Through the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code>, users can also have access to their different Python
+installations. Have a look at how to access it here:</p>
+<ol class="arabic simple">
+<li><p>Search for the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code> and run it.</p></li>
+<li><p>Access the <code class="docutils literal notranslate"><span class="pre">Manage</span> <span class="pre">Python</span> <span class="pre">Environments</span></code> tab.</p></li>
+<li><p>Select your desired <code class="docutils literal notranslate"><span class="pre">Python</span></code> environment and start one of the listed options.</p></li>
+</ol>
+<p>By default, Ansys Python Manager list python environments available under,</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">{user</span> <span class="pre">directory}/.ansys_python_venvs</span></code> for Windows</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{user</span> <span class="pre">directory}/.local/ansys/.ansys_python_venvs</span></code> for Linux</p></li>
+</ul>
+<p>To manage this directory, go to the <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">&gt;&gt;</span> <span class="pre">Configure</span></code> section <code class="docutils literal notranslate"><span class="pre">(Ctrl</span> <span class="pre">+</span> <span class="pre">D)</span></code> and make the appropriate changes.</p>
+<ol class="arabic simple">
+<li><p>To add a new default directory path, provide the path in the corresponding text box.</p></li>
+<li><p>To add a new path where virtual environments are searched for, provide the path in the corresponding text box and click the <code class="docutils literal notranslate"><span class="pre">Add</span></code> button.</p></li>
+<li><p>To remove directory path select the respective path that you want remove from the dropdown and click the <code class="docutils literal notranslate"><span class="pre">Remove</span></code> button.</p></li>
+<li><p>Finally, click the <code class="docutils literal notranslate"><span class="pre">Save</span></code> button to save the configurations.</p></li>
+</ol>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Launching</span> <span class="pre">options</span></code> section, the following options are available:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Launch</span> <span class="pre">Console</span></code>: this option starts a console window with the command <code class="docutils literal notranslate"><span class="pre">python</span></code> pointing
+towards your selected Python environment.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Launch</span> <span class="pre">VSCode</span></code>: this option starts a <code class="docutils literal notranslate"><span class="pre">Visual</span> <span class="pre">Studio</span> <span class="pre">Code</span></code>. If <code class="docutils literal notranslate"><span class="pre">Visual</span> <span class="pre">Studio</span> <span class="pre">Code</span></code> is
+not installed, then the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code> provides instructions to install it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Launch</span> <span class="pre">JupyterLab</span></code>: this option starts a <code class="docutils literal notranslate"><span class="pre">JupyterLab</span></code> session. If <code class="docutils literal notranslate"><span class="pre">JupyterLab</span></code> is
+not installed, then the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code> installs it for you.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Launch</span> <span class="pre">Jupyter</span> <span class="pre">Notebook</span></code>: this option starts a <code class="docutils literal notranslate"><span class="pre">Jupyter</span> <span class="pre">Notebook</span></code> session. If
+<code class="docutils literal notranslate"><span class="pre">Jupyter</span> <span class="pre">Notebook</span></code> is not installed, then the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code> installs it for you.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Launch</span> <span class="pre">Spyder</span></code>: this option starts a Spyder IDE session. If Spyder is not installed,
+then the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code> installs it for you.</p></li>
+</ul>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Package</span> <span class="pre">management</span></code> section, the following options are available:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Install</span> <span class="pre">Python</span> <span class="pre">default</span> <span class="pre">packages</span></code>: by selecting this option, your selected Python install
+receives the latest compatible versions for <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, <code class="docutils literal notranslate"><span class="pre">pyvista</span></code>,
+and  <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Install</span> <span class="pre">PyAnsys</span></code>: by selecting this option, your selected Python install has access to
+the latest, compatible PyAnsys metapackage installation. This metapackage provides you with
+access to the latest public PyAnsys libraries in their compatible version with the latest
+Ansys products.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">List</span> <span class="pre">installed</span> <span class="pre">packages</span></code>: by selecting this option, a list of the installed packages on
+your selected Python install is provided. This might be useful for identifying potential problems.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-the-ansys-python-manager">Installing the <code class="docutils literal notranslate"><span class="pre">Ansys</span> <span class="pre">Python</span> <span class="pre">Manager</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-python">Installing Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurable-options-for-the-installer">Configurable options for the installer</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-python-virtual-environment">Create Python virtual environment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-python-environments">Managing Python environments</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <ul class="this-page-menu">
+      <li><a href="_sources/installer.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+
+  <!-- Include desired assets -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"></script>
+
+<script>
+// Passing the search options to the search.js file
+const SEARCH_OPTIONS = JSON.parse('{"keys": ["title", "text"], "limit": 10, "threshold": 0.2}');
+const SEARCH_FILE = "_static/search.json";
+</script>
+
+
+<script src="_static/js/search.js"></script>
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2025 ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  1.3.1. <br />Last updated on
+  <span id="ast_build_date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var ast_lastModifiedDate = new Date(document.lastModified);
+  var ast_build_date = ast_lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("ast_build_date").innerHTML = ast_build_date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
